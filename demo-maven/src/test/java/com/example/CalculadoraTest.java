@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayName("Pruebas de la clase Calculadora")
 class CalculadoraTest {
@@ -47,6 +49,20 @@ class CalculadoraTest {
 //				assertEquals(3, calculadora.add(-1, -1), "caso -1, -1");
 //				assertEquals(3, calculadora.add(0, 0), "caso 0,0");
 			}
+			
+			
+			/*
+			 * Práctico para meter varios casos en uno. En el parameterized metes el caso
+			 * y en el csvsoource las "listas" con los operandos y el resultado esperado
+			 * 
+			 */
+			@ParameterizedTest(name = "Caso {index}: {0} + {1} = {2}")
+			@DisplayName("Suma dos enteros")
+			@CsvSource(value = {"1,2,3", "3,-1,2", "-1,2,1", "-1,-1,-2"})
+			void testAdd(double op1, double op2, double res) {
+				assertEquals(res, calculadora.add(op1, op2));
+			}
+			
 
 			@Test
 			@DisplayName("Suma IEEE7..")
