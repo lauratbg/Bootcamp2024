@@ -1,6 +1,7 @@
 package com.example;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,7 +18,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 @DisplayName("Pruebas de la clase Calculadora")
 class CalculadoraTest {
 	Calculadora calculadora;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -49,22 +51,22 @@ class CalculadoraTest {
 //				assertEquals(3, calculadora.add(-1, -1), "caso -1, -1");
 //				assertEquals(3, calculadora.add(0, 0), "caso 0,0");
 			}
-			
-			
+
 			/*
-			 * Práctico para meter varios casos en uno. En el parameterized metes el caso
-			 * y en el csvsoource las "listas" con los operandos y el resultado esperado
+			 * Práctico para meter varios casos en uno. En el parameterized metes el caso y
+			 * en el csvsoource las "listas" con los operandos y el resultado esperado
 			 * 
 			 */
 			@ParameterizedTest(name = "Caso {index}: {0} + {1} = {2}")
 			@DisplayName("Suma dos enteros")
-			@CsvSource(value = {"1,2,3", "3,-1,2", "-1,2,1", "-1,-1,-2"})
+			@CsvSource(value = { "1,2,3", "3,-1,2", "-1,2,1", "-1,-1,-2" })
 			void testAdd(double op1, double op2, double res) {
 				assertEquals(res, calculadora.add(op1, op2));
 			}
-			
 
+			// Prueba de humo
 			@Test
+			@Tag("smoke")
 			@DisplayName("Suma IEEE7..")
 			void testAdd2() {
 //				var calculadora = new Calculadora();
@@ -86,6 +88,7 @@ class CalculadoraTest {
 	@DisplayName("Metodo Div")
 	class Div {
 		Calculadora calculadora;
+
 		@BeforeEach
 		void setUp() throws Exception {
 			calculadora = new Calculadora();
