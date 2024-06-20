@@ -41,7 +41,7 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println(saluda.getContador());
 		System.out.println(saluda2.getContador());
 		System.out.println(entorno.getContador());
-		System.out.println(rango.getMin() + " -> " + rango.getMax());
+//		System.out.println(rango.getMin() + " -> " + rango.getMax());
 	}
 
 }
