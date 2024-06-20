@@ -10,10 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import com.example.core.test.Smoke;
 
 @DisplayName("Pruebas de la clase Calculadora")
 class CalculadoraTest {
@@ -66,7 +67,7 @@ class CalculadoraTest {
 
 			// Prueba de humo
 			@Test
-			@Tag("smoke")
+			@Smoke
 			@DisplayName("Suma IEEE7..")
 			void testAdd2() {
 //				var calculadora = new Calculadora();
