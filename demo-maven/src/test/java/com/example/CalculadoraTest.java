@@ -2,6 +2,9 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyDouble;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -128,6 +131,25 @@ class CalculadoraTest {
 
 				assertThrows(ArithmeticException.class, () -> calculadora.div(3.0, 0));
 			}
+
+		}
+		
+		@Test
+		void simula() {
+			Calculadora calculadora = mock(Calculadora.class);
+			//aunque 2+2 = 4, yo mockeo que es 3 y va a ser 3
+//			when(calculadora.add(2, 2)).thenReturn(3.0);
+			
+			// le pase lo que le pase va a devolver siempre 3
+//			when(calculadora.add(anyDouble(), anyDouble())).thenReturn(3.0);
+			
+			// primero va a devolver 3, y las siguientes veces 4
+			when(calculadora.add(anyDouble(), anyDouble())).thenReturn(3.0).thenReturn(4.0);
+
+
+			assertEquals(3, calculadora.add(2.0, 2.0));
+			//solo suplanta el del valor que he metido
+			assertEquals(4, calculadora.add(12.0, 2.0));
 
 		}
 	}

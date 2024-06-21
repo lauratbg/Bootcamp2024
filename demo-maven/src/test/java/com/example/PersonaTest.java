@@ -5,6 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -81,6 +87,39 @@ class PersonaTest {
 			void soloNombre(int id, String nombre) {
 				assertThrows(Exception.class, () -> new Persona(id, nombre));
 			}
+		}
+		
+		@Test
+		void ponMayusculasServiceOK() {
+			var persona = new Persona(1, "Pepito", "Grillo");
+			
+			var dao = mock(PersonaRepository.class);
+			when(dao.getOne(anyInt())).thenReturn(Optional.of(persona));
+			
+//			doNothing().when(dao).modify(new Persona(1, "Pepito", "Grillo"));
+			
+			var srv = new PersonaService(dao);
+			srv.ponMayusculas(1);
+			
+			assertEquals("PEPITO", persona.getNombre());
+			
+			//Se verifica que h allamado a ese método con esos parámetros
+			verify(dao).modify(persona);
+			
+		}
+		
+		@Test
+		void ponMayusculasServiceKO() {
+			var persona = new Persona(1, "Pepito", "Grillo");
+			
+			var dao = mock(PersonaRepository.class);
+			when(dao.getOne(anyInt())).thenReturn(Optional.empty());
+			
+			
+			var srv = new PersonaService(dao);
+			assertThrows(IllegalArgumentException.class, () -> srv.ponMayusculas(1));
+			
+			
 		}
 	}
 
