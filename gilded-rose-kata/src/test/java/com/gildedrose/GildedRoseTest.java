@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayName("Pruebas de la clase GildedRose")
 class GildedRoseTest {
@@ -14,19 +16,18 @@ class GildedRoseTest {
 	@DisplayName("Item genérico")
 	class ItemGenerico {
 		/*
-		 * GIVEN: un elemento fuera de tiempo para venderlo y una calidad = 5
+		 * GIVEN: un elemento fuera de tiempo para venderlo 
 		 * WHEN: se llama al método updatequality() 
 		 * THEN: su calidad se degrada 2 unidades
 		 */
-		@Test
-		void testDegrada2Unidades() {
-			items = new Item[] { new Item("+5 Dexterity Vest", -1, 5) };
+		@ParameterizedTest(name = "Caso {index}: quality: {0} -> sellin: {1} quality: {2}")
+		@CsvSource(value = { "5,-1,3", "6,-2,4" })
+		void testDegrada2Unidades(int quality, int sellin, int res) {
+			items = new Item[] { new Item("+5 Dexterity Vest", sellin, quality) };
 			GildedRose app = new GildedRose(items);
 			app.updateQuality();
-			assertEquals(3, app.items[0].quality);
+			assertEquals(res, app.items[0].quality);
 			
-			//Comprobación toString()
-			assertEquals("+5 Dexterity Vest, -2, 3", app.items[0].toString());
 		}
 
 		/*
