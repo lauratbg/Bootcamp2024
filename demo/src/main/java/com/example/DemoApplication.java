@@ -32,9 +32,11 @@ public class DemoApplication implements CommandLineRunner {
 //		}
 
 		
-		dao.deleteById(206);
+//		dao.deleteById(206);
 
-		dao.findAll().forEach(System.out::println);
+//		dao.findAll().forEach(System.out::println);
+		
+		dao.findTop5ByLastNameStartingWithOrderByFirstNameDesc("P").forEach(System.out::println);
 	}
 
 }
