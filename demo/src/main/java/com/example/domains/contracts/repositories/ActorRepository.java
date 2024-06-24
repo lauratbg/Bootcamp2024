@@ -17,7 +17,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query(value = "FROM Actor a WHERE a.actorId >= ?1")
 	List<Actor> findByJPQL(int actorId);
 	
-	@Query(value = "SELECT * FROM Actor WHERE actor_id >= :id", nativeQuery = true)
+	@Query(value = "SELECT * FROM actor WHERE actor_id >= :id", nativeQuery = true)
 	List<Actor> findBySQL(int id);
+	
 
 }
