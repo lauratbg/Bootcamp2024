@@ -7,27 +7,31 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
+import com.example.domains.core.contracts.repositories.RepositoryWithProjections;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.ActorShort;
 
-public interface ActorRepository extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor> {
+public interface ActorRepository
+		extends JpaRepository<Actor, Integer>, JpaSpecificationExecutor<Actor>, RepositoryWithProjections {
 	List<Actor> findTop5ByLastNameStartingWithOrderByFirstNameDesc(String prefijo);
+
 	List<Actor> findTop5ByLastNameStartingWith(String prefijo, Sort orderBy);
-	
+
 	List<Actor> findByActorIdGreaterThanEqual(int actorId);
-	
+
 	@Query(value = "FROM Actor a WHERE a.actorId >= ?1")
 	List<Actor> findByJPQL(int actorId);
-	
+
 	@Query(value = "SELECT * FROM actor WHERE actor_id >= :id", nativeQuery = true)
 	List<Actor> findBySQL(int id);
-	
+
 	// read y query son sinónimos de find
 	List<ActorDTO> readByActorIdGreaterThanEqual(int actorId);
+
 	List<ActorShort> queryByActorIdGreaterThanEqual(int actorId);
 
-	// versión genérica para no quedarse sin sinónimos 
+	// versión genérica para no quedarse sin sinónimos
 	<T> List<T> findByActorIdGreaterThanEqual(int actorId, Class<T> proyeccion);
 
 }
