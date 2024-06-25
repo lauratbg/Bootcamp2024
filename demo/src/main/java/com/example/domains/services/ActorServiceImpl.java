@@ -60,34 +60,44 @@ public class ActorServiceImpl implements ActorService {
 
 	@Override
 	public Actor add(Actor item) throws DuplicateKeyException, InvalidDataException {
-		// TODO Auto-generated method stub
-		return null;
+		if (item == null)
+			throw new InvalidDataException("No puede ser nulo");
+		if (item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+		// evito que haga el exist si no es necesario
+		if (item.getActorId() != 0 && daoActorRepository.existsById(item.getActorId()))
+			throw new DuplicateKeyException("Ya existe");
+		return daoActorRepository.save(item);
 	}
 
 	@Override
 	public Actor modify(Actor item) throws NotFoundException, InvalidDataException {
-		// TODO Auto-generated method stub
-		return null;
+		if (item == null)
+			throw new InvalidDataException("No puede ser nulo");
+		if (item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+		if (!daoActorRepository.existsById(item.getActorId()))
+			throw new NotFoundException();
+		return daoActorRepository.save(item);
 	}
 
 	@Override
 	public void delete(Actor item) throws InvalidDataException {
-		// TODO Auto-generated method stub
-		
+		if (item == null)
+			throw new InvalidDataException("No puede ser nulo");
+		daoActorRepository.delete(item);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
-		
+		daoActorRepository.deleteById(id);
+
 	}
 
 	@Override
 	public void repartePremios() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Repartiendo premios...");
+
 	}
-	
-	
-	
+
 }
