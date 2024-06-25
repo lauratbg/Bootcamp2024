@@ -28,6 +28,7 @@ public class DemoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada...");
 
+		// ------------------------------- DAO -------------------------------
 //		var item = dao.findById(204);
 //
 //		if (item.isEmpty())
@@ -64,7 +65,9 @@ public class DemoApplication implements CommandLineRunner {
 //		if(actor.isValid()) System.out.println(dao.save(actor));
 //		else actor.getErrors().forEach(System.out::println);
 
-		// Proyecciones
+		
+		
+		// ------------------------------- Proyecciones -------------------------------
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
 
 //		var actor = new ActorDTO(0, "FROM", "DTO");
@@ -80,10 +83,14 @@ public class DemoApplication implements CommandLineRunner {
 		// usando la genérica para que saque DTOs
 //		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(System.out::println);
 
-		// Pageable
+		
+		
+		// ------------------------------- Pageable -------------------------------
 //		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).get().forEach(System.out::println);
 
-		// Serialización
+		
+		
+		// ------------------------------- Serialización -------------------------------
 //		var serialize = new ObjectMapper();
 //		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(item -> {
 //			try {
@@ -110,7 +117,7 @@ public class DemoApplication implements CommandLineRunner {
 //			}
 //		});
 		
-		// Serializador XML
+		// ------------------------------- Serializador XML -------------------------------
 		var serialize = new XmlMapper();
 		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).forEach(item -> {
 			try {
