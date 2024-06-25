@@ -2,7 +2,9 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -28,6 +30,7 @@ public class FilmActor implements Serializable {
 	private FilmActorPK id;
 
 	@Column(name="last_update", nullable=false)
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Actor
@@ -39,10 +42,26 @@ public class FilmActor implements Serializable {
 	//bi-directional many-to-one association to Film
 	@ManyToOne
 	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
+	@JsonManagedReference
 	private Film film;
 
 	public FilmActor() {
 	}
+
+	
+	public FilmActor(FilmActorPK id) {
+		super();
+		this.id = id;
+	}
+
+
+	public FilmActor(FilmActorPK id, Actor actor, Film film) {
+		super();
+		this.id = id;
+		this.actor = actor;
+		this.film = film;
+	}
+
 
 	public FilmActorPK getId() {
 		return this.id;
@@ -76,4 +95,30 @@ public class FilmActor implements Serializable {
 		this.film = film;
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		FilmActor other = (FilmActor) obj;
+		return Objects.equals(id, other.id);
+	}
+
+
+	@Override
+	public String toString() {
+		return "FilmActor [id=" + id + ", actor=" + actor + ", film=" + film + "]";
+	}
+
+	
 }

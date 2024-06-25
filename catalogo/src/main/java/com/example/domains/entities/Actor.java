@@ -19,7 +19,6 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -41,7 +40,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	@Column(name="first_name", nullable=false, length=45)
 	@NotBlank
 	@Size(max=45, min=2)
-	@Pattern(regexp = "^[A-Z]+$", message = "tiene que estar en mayúsculas")
+//	@Pattern(regexp = "^[A-Z]+$", message = "tiene que estar en mayúsculas")
 	private String firstName;
 
 	@Column(name="last_name", nullable=false, length=45)

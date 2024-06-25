@@ -3,7 +3,10 @@ package com.example.domains.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -15,6 +18,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 /**
@@ -34,20 +39,34 @@ public class Category implements Serializable {
 	private int categoryId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
-	@JsonIgnore
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=25)
+	@NotBlank
+	@Size(max=25, min=2)
 	@JsonProperty("categoría")
 	private String name;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="category")
 	@JsonIgnore
+	@JsonBackReference
 	private List<FilmCategory> filmCategories;
 
 	public Category() {
 	}
+	
+	public Category(int categoryId, String name, List<FilmCategory> filmCategories) {
+		this.categoryId = categoryId;
+		this.name = name;
+		this.filmCategories = filmCategories;
+	}
+
+	public Category(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
 
 	public int getCategoryId() {
 		return this.categoryId;
@@ -94,5 +113,29 @@ public class Category implements Serializable {
 
 		return filmCategory;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoryId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		return categoryId == other.categoryId;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", name=" + name + ", filmCategories=" + filmCategories + "]";
+	}
+	
+	
 
 }

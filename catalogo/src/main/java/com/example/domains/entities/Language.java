@@ -3,6 +3,10 @@ package com.example.domains.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +16,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 /**
@@ -30,21 +36,43 @@ public class Language implements Serializable {
 	private int languageId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=20)
+	@NotBlank
+	@Size(max=20, min=2)
 	private String name;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="language")
+	@JsonBackReference
 	private List<Film> films;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="languageVO")
+	@JsonBackReference
 	private List<Film> filmsVO;
 
 	public Language() {
 	}
+
+	
+	public Language(int languageId) {
+		super();
+		this.languageId = languageId;
+	}
+
+
+
+	public Language(int languageId, String name, List<Film> films, List<Film> filmsVO) {
+		super();
+		this.languageId = languageId;
+		this.name = name;
+		this.films = films;
+		this.filmsVO = filmsVO;
+	}
+
 
 	public int getLanguageId() {
 		return this.languageId;
@@ -114,4 +142,33 @@ public class Language implements Serializable {
 		return filmsVO;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(languageId);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Language other = (Language) obj;
+		return languageId == other.languageId;
+	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Language [languageId=" + languageId + ", name=" + name + ", films=" + films + ", filmsVO=" + filmsVO
+				+ "]";
+	}
+	
+	
 }

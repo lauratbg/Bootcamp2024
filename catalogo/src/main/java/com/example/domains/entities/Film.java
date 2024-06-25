@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,6 +43,7 @@ public class Film implements Serializable {
 	private String description;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Timestamp lastUpdate;
 
 	private int length;
@@ -63,26 +69,39 @@ public class Film implements Serializable {
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id", nullable=false)
+	@JsonManagedReference
 	private Language language;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="original_language_id")
+	@JsonManagedReference
 	private Language languageVO;
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference
 	private List<FilmActor> filmActors;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonBackReference
 	private List<FilmCategory> filmCategories;
 
-//	//bi-directional many-to-one association to Inventory
-//	@OneToMany(mappedBy="film")
-//	private List<Inventory> inventories;
-
 	public Film() {
+	}
+
+	
+	public Film(int filmId) {
+		this.filmId = filmId;
+	}
+
+	public Film(int filmId, String rating, String title, Language language) {
+		super();
+		this.filmId = filmId;
+		this.rating = rating;
+		this.title = title;
+		this.language = language;
 	}
 
 	public int getFilmId() {
@@ -224,6 +243,34 @@ public class Film implements Serializable {
 
 		return filmCategory;
 	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(filmId);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Film other = (Film) obj;
+		return filmId == other.filmId;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Film [filmId=" + filmId + ", description=" + description + ", rating=" + rating + ", title=" + title
+				+ ", language=" + language + "]";
+	}
+	
+	
 
 
 }
