@@ -91,6 +91,15 @@ public class DemoApplication implements CommandLineRunner {
 				e.printStackTrace();
 			}
 		});
+		
+		// No se puede serializar Actor porque tiene la colección de FilmActor que 
+		// tiene dentro Actor -> bucle infinito
+		// 			SOLUCIÓN 1
+		// Se puede solucionar poniendo @JsonIgnore en el atributo lista de FilmActor de Actor
+		// 			SOLUCIÓN 2
+		// o también poniendo en la lista @JsonBackReference y en el atributo Actor
+		// de filmactor @JsonManagedReference, para decir cual es la parte uno y cual la parte n
+
 	}
 
 }

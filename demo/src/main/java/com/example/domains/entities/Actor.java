@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.example.domains.core.entities.EntityBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,6 +55,8 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY) //si no pongo el @transactional hay que poner fetch = fetchType.EAGER
+//	@JsonIgnore
+	@JsonBackReference
 	private List<FilmActor> filmActors;
 
 	public Actor() {
