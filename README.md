@@ -33,6 +33,18 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Proyecciones JPA**: Para seleccionar y manipular solo los datos necesarios de las entidades.
 - **Pageable**: Para manejar la paginación y ordenación de grandes conjuntos de datos.
 
+## demo-maven
+En este proyecto estoy aprendiendo y practicando el uso de anotaciones en pruebas unitarias y de integración con JUnit 5. Entre las anotaciones se incluyen:
+
+- **@DisplayName**: Para proporcionar nombres legibles y descriptivos a las pruebas.
+- **@Nested**: Para agrupar pruebas relacionadas dentro de clases internas.
+- **@RepeatedTest**: Para ejecutar una prueba varias veces.
+- **@ParameterizedTest**: Para ejecutar una prueba con diferentes parámetros.
+- **@CsvSource**: Para proporcionar datos a pruebas parametrizadas desde valores CSV.
+- **@Retention**: Para especificar cuánto tiempo se retienen las anotaciones.
+- **@Tag**: Para agrupar y filtrar pruebas según etiquetas específicas.
+- **@Target**: Para indicar los elementos de programa a los que se aplica una anotación.
+- **@Disabled**: Para deshabilitar pruebas temporalmente.
 
 ## gilded-rose-kata
 Este proyecto contiene mi implementación y refactorización de la kata de refactorización "Gilded Rose", basada en la descripción y requisitos proporcionados en  [Gilded Rose Refactoring Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements_es.md) de Emily Bache, siendo el objetivo la creación de tests.
