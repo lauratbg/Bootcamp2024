@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
-import com.example.domains.entities.models.ActorDTO;
 
 import jakarta.transaction.Transactional;
 
@@ -69,12 +70,17 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
 		
 		// me devuelve actorDTO
-		dao.readByActorIdGreaterThanEqual(200).forEach(System.out::println);
+//		dao.readByActorIdGreaterThanEqual(200).forEach(System.out::println);
+//		
+//		// me devuelve actorShort
+//		dao.queryByActorIdGreaterThanEqual(200).forEach(item -> System.out.println(item.getActorId() + " " + item.getNombre()));
 		
-		// me devuelve actorShort
-		dao.queryByActorIdGreaterThanEqual(200).forEach(item -> System.out.println(item.getActorId() + " " + item.getNombre()));
-		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(System.out::println);
+		// usando la genérica para que saque DTOs
+//		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(System.out::println);
 
+		
+		// Pageable
+		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).get().forEach(System.out::println);
 	}
 
 }
