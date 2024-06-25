@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import jakarta.transaction.Transactional;
 
@@ -84,7 +84,7 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).get().forEach(System.out::println);
 
 		// Serialización
-		var serialize = new ObjectMapper();
+//		var serialize = new ObjectMapper();
 //		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(item -> {
 //			try {
 //				System.out.println(serialize.writeValueAsString(item));
@@ -101,6 +101,17 @@ public class DemoApplication implements CommandLineRunner {
 		// o también poniendo en la lista @JsonBackReference y en el atributo Actor
 		// de filmactor @JsonManagedReference, para decir cual es la parte uno y cual la parte n
 
+//		var serialize = new ObjectMapper();
+//		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).forEach(item -> {
+//			try {
+//				System.out.println(serialize.writeValueAsString(item));
+//			} catch (JsonProcessingException e) {
+//				e.printStackTrace();
+//			}
+//		});
+		
+		// Serializador XML
+		var serialize = new XmlMapper();
 		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).forEach(item -> {
 			try {
 				System.out.println(serialize.writeValueAsString(item));
