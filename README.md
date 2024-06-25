@@ -20,6 +20,7 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Lombok**: Para reducir el código repetitivo a través de anotaciones.
 - **Spring Data**: Para facilitar el acceso a los datos en aplicaciones Spring.
 - **Podman**: Para gestionar contenedores, incluyendo la configuración de una base de datos MySQL con el esquema Sakila.
+- **Proyecciones y Pageable**: Para optimizar y manejar grandes conjuntos de datos de manera eficiente.
 
 ### Tecnologías Utilizadas
 
@@ -29,6 +30,8 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Lombok**: Herramienta para eliminar el código repetitivo, como getters, setters, y constructores.
 - **MySQL**: Base de datos utilizada para el esquema Sakila.
 - **Podman**: Herramienta para gestionar contenedores.
+- **Proyecciones JPA**: Para seleccionar y manipular solo los datos necesarios de las entidades.
+- **Pageable**: Para manejar la paginación y ordenación de grandes conjuntos de datos.
 
 
 ## gilded-rose-kata
