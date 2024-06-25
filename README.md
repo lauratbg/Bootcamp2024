@@ -21,6 +21,8 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Spring Data**: Para facilitar el acceso a los datos en aplicaciones Spring.
 - **Podman**: Para gestionar contenedores, incluyendo la configuración de una base de datos MySQL con el esquema Sakila.
 - **Proyecciones y Pageable**: Para optimizar y manejar grandes conjuntos de datos de manera eficiente.
+- **Serialización y deserialización con Jackson**: Para JSON y XML.
+
 
 ### Tecnologías Utilizadas
 
@@ -32,6 +34,8 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Podman**: Herramienta para gestionar contenedores.
 - **Proyecciones JPA**: Para seleccionar y manipular solo los datos necesarios de las entidades.
 - **Pageable**: Para manejar la paginación y ordenación de grandes conjuntos de datos.
+- **Jackson**: Biblioteca para la serialización y deserialización de objetos en JSON y XML.
+
 
 ## demo-maven
 En este proyecto estoy aprendiendo y practicando el uso de anotaciones en pruebas unitarias y de integración con JUnit 5. Entre las anotaciones se incluyen:
