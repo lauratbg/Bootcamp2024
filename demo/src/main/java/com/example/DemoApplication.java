@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.repositories.ActorRepository;
-import com.example.domains.entities.Actor;
+import com.example.domains.entities.models.ActorDTO;
 
 import jakarta.transaction.Transactional;
 
@@ -58,10 +58,16 @@ public class DemoApplication implements CommandLineRunner {
 //			actor.getFilmActors().forEach(f -> System.out.println(f.getFilm().getTitle()));
 //		}
 		
-		var actor = new Actor(0, "  ", null);
-		if(actor.isValid()) System.out.println(dao.save(actor));
-		else actor.getErrors().forEach(System.out::println);
+//		var actor = new Actor(0, "  ", null);
+//		if(actor.isValid()) System.out.println(dao.save(actor));
+//		else actor.getErrors().forEach(System.out::println);
 		
+//		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
+		
+		var actor = new ActorDTO(0, "FROM", "DTO");
+		dao.save(ActorDTO.from(actor));
+		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
+
 
 	}
 

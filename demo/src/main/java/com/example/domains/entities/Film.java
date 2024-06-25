@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -84,10 +83,6 @@ public class Film implements Serializable {
 	private List<Inventory> inventories;
 
 	public Film() {
-	}
-
-	public Film(int filmId) {
-		this.filmId = filmId;
 	}
 
 	public int getFilmId() {
@@ -251,24 +246,5 @@ public class Film implements Serializable {
 
 		return inventory;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(filmId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Film other = (Film) obj;
-		return filmId == other.filmId;
-	}
-	
-	
 
 }

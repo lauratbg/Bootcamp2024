@@ -1,9 +1,17 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
 /**
@@ -29,7 +37,7 @@ public class Language implements Serializable {
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="language")
-	private List<Film> films1;
+	private List<Film> films;
 
 	//bi-directional many-to-one association to Film
 	@OneToMany(mappedBy="languageVO")
@@ -62,26 +70,26 @@ public class Language implements Serializable {
 		this.name = name;
 	}
 
-	public List<Film> getFilms1() {
-		return this.films1;
+	public List<Film> getFilms() {
+		return this.films;
 	}
 
-	public void setFilms1(List<Film> films1) {
-		this.films1 = films1;
+	public void setFilms(List<Film> films) {
+		this.films = films;
 	}
 
-	public Film addFilms1(Film films1) {
-		getFilms1().add(films1);
-		films1.setLanguage(this);
+	public Film addFilm(Film film) {
+		getFilms().add(film);
+		film.setLanguage(this);
 
-		return films1;
+		return film;
 	}
 
-	public Film removeFilms1(Film films1) {
-		getFilms1().remove(films1);
-		films1.setLanguage(null);
+	public Film removeFilm(Film film) {
+		getFilms().remove(film);
+		film.setLanguage(null);
 
-		return films1;
+		return film;
 	}
 
 	public List<Film> getFilmsVO() {
