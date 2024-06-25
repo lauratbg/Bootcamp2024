@@ -64,10 +64,16 @@ public class DemoApplication implements CommandLineRunner {
 		
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
 		
-		var actor = new ActorDTO(0, "FROM", "DTO");
+//		var actor = new ActorDTO(0, "FROM", "DTO");
 //		dao.save(ActorDTO.from(actor));
-		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
-
+//		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
+		
+		// me devuelve actorDTO
+		dao.readByActorIdGreaterThanEqual(200).forEach(System.out::println);
+		
+		// me devuelve actorShort
+		dao.queryByActorIdGreaterThanEqual(200).forEach(item -> System.out.println(item.getActorId() + " " + item.getNombre()));
+		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(System.out::println);
 
 	}
 
