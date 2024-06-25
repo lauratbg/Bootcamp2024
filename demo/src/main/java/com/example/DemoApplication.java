@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
-import com.example.domains.entities.models.ActorDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -84,13 +85,13 @@ public class DemoApplication implements CommandLineRunner {
 
 		// Serialización
 		var serialize = new ObjectMapper();
-		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(item -> {
-			try {
-				System.out.println(serialize.writeValueAsString(item));
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-		});
+//		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(item -> {
+//			try {
+//				System.out.println(serialize.writeValueAsString(item));
+//			} catch (JsonProcessingException e) {
+//				e.printStackTrace();
+//			}
+//		});
 		
 		// No se puede serializar Actor porque tiene la colección de FilmActor que 
 		// tiene dentro Actor -> bucle infinito
@@ -100,6 +101,14 @@ public class DemoApplication implements CommandLineRunner {
 		// o también poniendo en la lista @JsonBackReference y en el atributo Actor
 		// de filmactor @JsonManagedReference, para decir cual es la parte uno y cual la parte n
 
+		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).forEach(item -> {
+			try {
+				System.out.println(serialize.writeValueAsString(item));
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 	}
 
 }

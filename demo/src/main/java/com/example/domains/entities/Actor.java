@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,6 +52,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm::ss")
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor
