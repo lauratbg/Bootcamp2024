@@ -10,11 +10,11 @@ public class ActorOtroDTO implements Serializable{
 	private String nombre;
 	private String apellidos;
 	
-	public ActorOtroDTO(int id, String nombre, String apellidos) {
+	public ActorOtroDTO(int actorId, String firstName, String lastName) {
 		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.id = actorId;
+		this.nombre = firstName;
+		this.apellidos = lastName;
 	}
 	
 

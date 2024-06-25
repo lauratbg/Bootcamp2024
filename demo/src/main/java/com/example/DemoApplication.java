@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import com.example.domains.contracts.repositories.ActorRepository;
+import com.example.domains.entities.models.ActorDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 
@@ -36,11 +37,10 @@ public class DemoApplication implements CommandLineRunner {
 //			dao.save(actor);
 //		}
 
-		
 //		dao.deleteById(206);
 
 //		dao.findAll().forEach(System.out::println);
-		
+
 //		dao.findTop5ByLastNameStartingWithOrderByFirstNameDesc("P").forEach(System.out::println);
 //		dao.findTop5ByLastNameStartingWith("P", Sort.by("LastName").ascending()).forEach(System.out::println);
 //		dao.findByActorIdGreaterThanEqual(200).forEach(System.out::println);
@@ -58,29 +58,39 @@ public class DemoApplication implements CommandLineRunner {
 //			System.out.println(actor);
 //			actor.getFilmActors().forEach(f -> System.out.println(f.getFilm().getTitle()));
 //		}
-		
+
 //		var actor = new Actor(0, "  ", null);
 //		if(actor.isValid()) System.out.println(dao.save(actor));
 //		else actor.getErrors().forEach(System.out::println);
-		
+
+		// Proyecciones
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
-		
+
 //		var actor = new ActorDTO(0, "FROM", "DTO");
 //		dao.save(ActorDTO.from(actor));
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
-		
+
 		// me devuelve actorDTO
 //		dao.readByActorIdGreaterThanEqual(200).forEach(System.out::println);
 //		
 //		// me devuelve actorShort
 //		dao.queryByActorIdGreaterThanEqual(200).forEach(item -> System.out.println(item.getActorId() + " " + item.getNombre()));
-		
+
 		// usando la genérica para que saque DTOs
 //		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(System.out::println);
 
-		
 		// Pageable
-		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).get().forEach(System.out::println);
+//		dao.findAll(PageRequest.of(3, 10, Sort.by("ActorId"))).get().forEach(System.out::println);
+
+		// Serialización
+		var serialize = new ObjectMapper();
+		dao.findByActorIdGreaterThanEqual(200, ActorDTO.class).forEach(item -> {
+			try {
+				System.out.println(serialize.writeValueAsString(item));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 }
