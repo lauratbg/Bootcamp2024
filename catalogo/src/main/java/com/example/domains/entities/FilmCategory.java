@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -14,6 +15,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 
 /**
@@ -23,10 +26,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="film_category")
 @NamedQuery(name="FilmCategory.findAll", query="SELECT f FROM FilmCategory f")
-public class FilmCategory implements Serializable {
+public class FilmCategory extends EntityBase<FilmCategory> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
+	@Positive
+	@Size(max=5)
 	private FilmCategoryPK id;
 
 	@Column(name="last_update", nullable=false)
