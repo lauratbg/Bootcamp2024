@@ -52,7 +52,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm::ss")
+	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor

@@ -105,7 +105,6 @@ public class DemoApplication implements CommandLineRunner {
 			try {
 				System.out.println(serialize.writeValueAsString(item));
 			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		});
