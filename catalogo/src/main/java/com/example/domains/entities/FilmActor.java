@@ -122,7 +122,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FilmActor [id=" + id + ", actor=" + actor + ", film=" + film + "]";
+		return "FilmActor [id=" + id + ", actor=" + actor + "]";
 	}
 
 	
