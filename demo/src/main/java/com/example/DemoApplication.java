@@ -65,7 +65,7 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
 		
 		var actor = new ActorDTO(0, "FROM", "DTO");
-		dao.save(ActorDTO.from(actor));
+//		dao.save(ActorDTO.from(actor));
 		dao.findAll().forEach(item -> System.out.println(ActorDTO.from(item)));
 
 
