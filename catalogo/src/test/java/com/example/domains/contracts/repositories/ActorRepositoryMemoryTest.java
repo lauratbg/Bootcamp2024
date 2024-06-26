@@ -10,8 +10,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.example.core.test.Lentos;
+import com.example.domains.contracts.services.ActorService;
+import com.example.domains.contracts.services.CategoryService;
 import com.example.domains.entities.Actor;
 
 
@@ -21,6 +24,12 @@ import com.example.domains.entities.Actor;
 class ActorRepositoryMemoryTest {
 	@Autowired
 	private TestEntityManager em;
+	
+	@MockBean
+	CategoryService srvCat;
+	
+	@MockBean
+	ActorService srvActor;
 
 	@Autowired
 	ActorRepository dao;
