@@ -52,3 +52,35 @@ En este proyecto estoy aprendiendo y practicando el uso de anotaciones en prueba
 
 ## gilded-rose-kata
 Este proyecto contiene mi implementación y refactorización de la kata de refactorización "Gilded Rose", basada en la descripción y requisitos proporcionados en  [Gilded Rose Refactoring Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements_es.md) de Emily Bache, siendo el objetivo la creación de tests.
+
+## catalogo
+Aquí se encuentra un sistema diseñado para gestionar un catálogo de películas. A través de este proyecto, se ha implementado una estructura completa de relaciones entre diferentes entidades que forman parte del catálogo.
+
+### Entidades del Proyecto
+El proyecto incluye las siguientes entidades:
+
+- **Actor**: Representa a los actores que participan en las películas.
+- **Category**: Categoriza las películas en distintos géneros.
+- **Film**: Representa a las películas del catálogo.
+- **FilmActor**: Gestiona la relación entre las películas y los actores.
+- **FilmCategory**: Gestiona la relación entre las películas y las categorías.
+- **Language**: Define los idiomas disponibles para las películas.
+- **FilmActorPK**: Llave primaria compuesta para la relación FilmActor.
+- **FilmCategoryPK**: Llave primaria compuesta para la relación FilmCategory.
+
+### Validaciones
+Se han añadido diversas validaciones para asegurar la integridad y consistencia de los datos dentro del sistema. Cada atributo de las entidades ha sido cuidadosamente validado para cumplir con los requisitos específicos del proyecto.
+
+### Repositorios y Servicios JPA
+Para la persistencia y manipulación de datos, se han implementado repositorios y servicios utilizando JPA (Java Persistence API). Esto asegura un manejo eficiente y robusto de las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre las entidades del catálogo.
+
+### Testing
+El proyecto incluye una serie de tests para asegurar el correcto funcionamiento del sistema:
+
+- **Tests de Validación**: Verifican que las validaciones de los atributos de las entidades funcionan correctamente.
+- **Tests de Repositorios**: Aseguran que las operaciones de persistencia en los repositorios se realizan de manera adecuada.
+- **Tests de Servicios**: Validan el funcionamiento de los servicios JPA, incluyendo las operaciones CRUD.
+  
+Se han desarrollado suficientes tests para demostrar mi habilidad y conocimiento en la implementación de un sistema robusto y bien estructurado, aunque no se ha testeado completamente todo el proyecto.
+
+Con este proyecto, he buscado implementar un sistema completo y funcional que demuestra mi capacidad para gestionar relaciones entre entidades, realizar validaciones adecuadas, y utilizar JPA para la persistencia de datos, todo ello complementado con un conjunto significativo de pruebas para garantizar la calidad del software.
