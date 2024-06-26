@@ -20,7 +20,7 @@ import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
 @SpringBootTest
-@DisplayName("'Service' test")
+@DisplayName("'ActorService' test")
 class ActorServiceTest {
 
 	@Autowired

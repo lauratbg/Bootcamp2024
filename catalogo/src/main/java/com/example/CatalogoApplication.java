@@ -24,7 +24,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada...");
-		srvActor.getAll().forEach(System.out::println);
+		srvCat.getAll().forEach(System.out::println);
 		
 	}
 
