@@ -18,7 +18,6 @@ import jakarta.validation.constraints.Positive;
 @DisplayName("Validaciones de actor")
 class ActorTest {
 
-
 	@DisplayName("Crear un actor")
 	@Nested
 	class Create {
