@@ -24,7 +24,7 @@ import com.example.domains.entities.Actor;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 
-// sin tocar la bd
+// sin tocar la bd, mockeando
 @DataJpaTest
 @ComponentScan(basePackages = "com.example")
 class ActorServiceImplTest {

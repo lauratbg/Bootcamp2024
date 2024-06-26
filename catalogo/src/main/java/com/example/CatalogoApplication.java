@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.contracts.services.CategoryService;
+import com.example.domains.contracts.services.FilmService;
 
 @SpringBootApplication
 public class CatalogoApplication implements CommandLineRunner {
@@ -20,11 +21,14 @@ public class CatalogoApplication implements CommandLineRunner {
 	
 	@Autowired
 	ActorService srvActor;
+	
+	@Autowired
+	FilmService srvFilm;
 
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada...");
-		srvCat.getAll().forEach(System.out::println);
+		srvFilm.getAll().forEach(System.out::println);
 		
 	}
 
