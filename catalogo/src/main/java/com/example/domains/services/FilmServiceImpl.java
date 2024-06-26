@@ -75,6 +75,8 @@ public class FilmServiceImpl implements FilmService {
 	public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (item.getFilmId() != 0 && dao.existsById(item.getFilmId()))
 			throw new DuplicateKeyException("Ya existe");
 		return dao.save(item);
@@ -84,6 +86,8 @@ public class FilmServiceImpl implements FilmService {
 	public Film modify(Film item) throws NotFoundException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (!dao.existsById(item.getFilmId()))
 			throw new NotFoundException();
 		return dao.save(item);

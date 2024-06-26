@@ -23,6 +23,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -41,7 +45,6 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="film_id", unique=true, nullable=false)
 	@Positive
-	@Size(max=5)
 	private int filmId;
 
 	@Lob
@@ -49,6 +52,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	@Positive
@@ -63,25 +67,31 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Column(name="rental_duration", nullable=false)
 	private byte rentalDuration;
 
+	@Digits(integer=4, fraction=2)
 	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
 	private BigDecimal rentalRate;
 
+	@Digits(integer=5, fraction=2)
 	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
 	private BigDecimal replacementCost;
 
 	@Column(nullable=false, length=128)
+	@Size(max=128)
+	@NotBlank
 	private String title;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id", nullable=false)
 	@JsonManagedReference
+	@NotNull
 	private Language language;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="original_language_id")
 	@JsonManagedReference
+	@NotNull
 	private Language languageVO;
 
 	//bi-directional many-to-one association to FilmActor

@@ -34,7 +34,8 @@ public class LanguageServiceImpl implements LanguageService {
 	public Language add(Language item) throws DuplicateKeyException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
-		// evito que haga el exist si no es necesario
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (item.getLanguageId() != 0 && dao.existsById(item.getLanguageId()))
 			throw new DuplicateKeyException("Ya existe");
 		return dao.save(item);
@@ -44,6 +45,8 @@ public class LanguageServiceImpl implements LanguageService {
 	public Language modify(Language item) throws NotFoundException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (!dao.existsById(item.getLanguageId()))
 			throw new NotFoundException();
 		return dao.save(item);

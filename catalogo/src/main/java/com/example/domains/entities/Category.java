@@ -20,6 +20,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -39,11 +40,11 @@ public class Category extends EntityBase<Category> implements Serializable {
 	@Column(name="category_id", unique=true, nullable=false)
 	@JsonProperty("id")
 	@Positive
-	@Size(max=3)
 	private int categoryId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	@Column(nullable=false, length=25)
@@ -59,6 +60,11 @@ public class Category extends EntityBase<Category> implements Serializable {
 	private List<FilmCategory> filmCategories;
 
 	public Category() {
+	}
+	
+	public Category(int categoryId, String name) {
+		this.categoryId = categoryId;
+		this.name = name;
 	}
 	
 	public Category(int categoryId, String name, List<FilmCategory> filmCategories) {

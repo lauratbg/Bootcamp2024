@@ -19,6 +19,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -37,7 +38,6 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="actor_id", unique=true, nullable=false)
 	@Positive
-	@Size(max=5)
 	private int actorId;
 
 	@Column(name="first_name", nullable=false, length=45)
@@ -55,6 +55,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to FilmActor

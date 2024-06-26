@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -36,6 +37,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
 
 	@Column(name="last_update", nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Actor

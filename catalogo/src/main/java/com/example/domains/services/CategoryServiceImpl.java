@@ -34,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category add(Category item) throws DuplicateKeyException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
-		// evito que haga el exist si no es necesario
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (item.getCategoryId() != 0 && dao.existsById(item.getCategoryId()))
 			throw new DuplicateKeyException("Ya existe");
 		return dao.save(item);
@@ -44,6 +45,8 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category modify(Category item) throws NotFoundException, InvalidDataException {
 		if (item == null)
 			throw new InvalidDataException("No puede ser nulo");
+		if(item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
 		if (!dao.existsById(item.getCategoryId()))
 			throw new NotFoundException();
 		return dao.save(item);

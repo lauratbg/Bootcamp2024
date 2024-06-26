@@ -15,8 +15,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 
 /**
@@ -31,23 +32,25 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
 
 	@EmbeddedId
 	@Positive
-	@Size(max=5)
 	private FilmCategoryPK id;
 
 	@Column(name="last_update", nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	@PastOrPresent
 	private Timestamp lastUpdate;
 
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false, insertable=false, updatable=false)
 	@JsonManagedReference
+	@NotNull
 	private Category category;
 
 	//bi-directional many-to-one association to Film
 	@ManyToOne
 	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
 	@JsonManagedReference
+	@NotNull
 	private Film film;
 
 	public FilmCategory() {
