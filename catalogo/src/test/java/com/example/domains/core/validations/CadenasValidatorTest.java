@@ -63,7 +63,7 @@ class CadenasValidatorTest {
 		void casoInvalido() {
 			var dummy = new Dummy("0T");
 			assertTrue(dummy.isInvalid());
-			assertEquals("ERRORES: nif: 0T no es un NIF válido.", dummy.getErrorsMessage());
+			assertEquals("ERRORES: nif: {validation.NIF.message}.", dummy.getErrorsMessage());
 		}
 	}
 }
