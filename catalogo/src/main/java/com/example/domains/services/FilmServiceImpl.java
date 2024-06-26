@@ -31,10 +31,6 @@ public class FilmServiceImpl implements FilmService {
 
 	}
 
-	@Override
-	public Optional<Film> getOne(Specification<Film> spec) {
-		return dao.findOne(spec);
-	}
 
 	@Override
 	public List<Film> getAll(Specification<Film> spec) {
@@ -101,8 +97,15 @@ public class FilmServiceImpl implements FilmService {
 
 	}
 
+
+	@Override
+	public Optional<Film> getOne(Specification<Film> spec) {
+		return dao.findOne(spec);
+	}
+
 	@Override
 	public List<Film> novedades(Timestamp fecha) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

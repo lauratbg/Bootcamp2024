@@ -68,7 +68,10 @@ public class Language extends EntityBase<Language> implements Serializable {
 		this.languageId = languageId;
 	}
 
-
+	public Language(int languageId, String name) {
+		this.languageId = languageId;
+		this.name = name;
+	}
 
 	public Language(int languageId, String name, List<Film> films, List<Film> filmsVO) {
 		super();

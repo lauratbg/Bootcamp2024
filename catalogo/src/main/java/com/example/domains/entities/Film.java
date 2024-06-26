@@ -3,6 +3,7 @@ package com.example.domains.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,8 +12,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +27,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -41,6 +47,55 @@ import jakarta.validation.constraints.Size;
 public class Film extends EntityBase<Film> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static enum Rating {
+		GENERAL_AUDIENCES("G"), PARENTAL_GUIDANCE_SUGGESTED("PG"), PARENTS_STRONGLY_CAUTIONED("PG-13"), RESTRICTED("R"),
+		ADULTS_ONLY("NC-17");
+
+		String value;
+
+		Rating(String value) {
+			this.value = value;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public static Rating getEnum(String value) {
+			switch (value) {
+			case "G":
+				return Rating.GENERAL_AUDIENCES;
+			case "PG":
+				return Rating.PARENTAL_GUIDANCE_SUGGESTED;
+			case "PG-13":
+				return Rating.PARENTS_STRONGLY_CAUTIONED;
+			case "R":
+				return Rating.RESTRICTED;
+			case "NC-17":
+				return Rating.ADULTS_ONLY;
+			case "":
+				return null;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + value);
+			}
+		}
+
+		public static final String[] VALUES = { "G", "PG", "PG-13", "R", "NC-17" };
+	}
+
+	@Converter
+	private static class RatingConverter implements AttributeConverter<Rating, String> {
+		@Override
+		public String convertToDatabaseColumn(Rating rating) {
+			return rating == null ? null : rating.getValue();
+		}
+
+		@Override
+		public Rating convertToEntityAttribute(String value) {
+			return value == null ? null : Rating.getEnum(value);
+		}
+	}
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -59,8 +114,8 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Positive
 	private int length;
 
-	@Column(length=1)
-	private String rating;
+	@Convert(converter = RatingConverter.class)
+	private Rating rating;
 
 	@Column(name="release_year")
 	private Short releaseYear;
@@ -68,11 +123,13 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Column(name="rental_duration", nullable=false)
 	private byte rentalDuration;
 
-	@Digits(integer=4, fraction=2)
+	@Digits(integer=2, fraction=2)
+	@DecimalMin(value = "0.0", inclusive = false)
 	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
 	private BigDecimal rentalRate;
 
-	@Digits(integer=5, fraction=2)
+	@Digits(integer = 3, fraction = 2)
+	@DecimalMin(value = "0.0", inclusive = false)
 	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
 	private BigDecimal replacementCost;
 
@@ -92,7 +149,6 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="original_language_id")
 	@JsonManagedReference
-	@NotNull
 	private Language languageVO;
 
 	//bi-directional many-to-one association to FilmActor
@@ -113,20 +169,40 @@ public class Film extends EntityBase<Film> implements Serializable {
 		this.filmId = filmId;
 	}
 	
-	public Film(int filmId, String rating, String title) {
+	public Film(int filmId, @NotBlank @Size(max = 128) String title, String description, @Min(1895) Short releaseYear,
+			@NotNull Language language, Language languageVO, @Positive Byte rentalDuration,
+			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
+			@Positive Integer length,
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,
+			Rating rating) {
 		super();
 		this.filmId = filmId;
-		this.rating = rating;
 		this.title = title;
-	}
-
-	public Film(int filmId, String rating, String title, Language language) {
-		super();
-		this.filmId = filmId;
+		this.description = description;
+		this.releaseYear = releaseYear;
+		this.language = language;
+		this.languageVO = languageVO;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
 		this.rating = rating;
+	}
+	
+	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive Byte rentalDuration,
+			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
+			@Positive int length,
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
+		super();
 		this.title = title;
 		this.language = language;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.length = length;
+		this.replacementCost = replacementCost;
 	}
+	
+
 
 	public int getFilmId() {
 		return this.filmId;
@@ -134,6 +210,16 @@ public class Film extends EntityBase<Film> implements Serializable {
 
 	public void setFilmId(int filmId) {
 		this.filmId = filmId;
+		if (filmActors != null && filmActors.size() > 0)
+			filmActors.forEach(item -> {
+				if (item.getId().getFilmId() != filmId)
+					item.getId().setFilmId(filmId);
+			});
+		if (filmCategories != null && filmCategories.size() > 0)
+			filmCategories.forEach(item -> {
+				if (item.getId().getFilmId() != filmId)
+					item.getId().setFilmId(filmId);
+			});
 	}
 
 	public String getDescription() {
@@ -160,11 +246,11 @@ public class Film extends EntityBase<Film> implements Serializable {
 		this.length = length;
 	}
 
-	public String getRating() {
+	public Rating getRating() {
 		return this.rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(Rating rating) {
 		this.rating = rating;
 	}
 
@@ -268,6 +354,70 @@ public class Film extends EntityBase<Film> implements Serializable {
 		return filmCategory;
 	}
 
+	// Gestión de actores
+
+		public List<Actor> getActors() {
+			return this.filmActors.stream().map(item -> item.getActor()).toList();
+		}
+
+		public void setActors(List<Actor> source) {
+			if (filmActors == null || !filmActors.isEmpty())
+				clearActors();
+			source.forEach(item -> addActor(item));
+		}
+
+		public void clearActors() {
+			filmActors = new ArrayList<FilmActor>();
+		}
+
+		public void addActor(Actor actor) {
+			FilmActor filmActor = new FilmActor(actor, this);
+			filmActors.add(filmActor);
+		}
+
+		public void addActor(int actorId) {
+			addActor(new Actor(actorId));
+		}
+
+		public void removeActor(Actor actor) {
+			var filmActor = filmActors.stream().filter(item -> item.getActor().equals(actor)).findFirst();
+			if (filmActor.isEmpty())
+				return;
+			filmActors.remove(filmActor.get());
+		}
+
+		// Gestión de categorias
+
+		public List<Category> getCategories() {
+			return this.filmCategories.stream().map(item -> item.getCategory()).toList();
+		}
+
+		public void setCategories(List<Category> source) {
+			if (filmCategories == null || !filmCategories.isEmpty())
+				clearCategories();
+			source.forEach(item -> addCategory(item));
+		}
+
+		public void clearCategories() {
+			filmCategories = new ArrayList<FilmCategory>();
+		}
+
+		public void addCategory(Category item) {
+			FilmCategory filmCategory = new FilmCategory(item, this);
+			filmCategories.add(filmCategory);
+		}
+
+		public void addCategory(int id) {
+			addCategory(new Category(id));
+		}
+
+		public void removeCategory(Category ele) {
+			var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
+			if (filmCategory.isEmpty())
+				return;
+			filmCategories.remove(filmCategory.get());
+		}
+		
 
 	@Override
 	public int hashCode() {

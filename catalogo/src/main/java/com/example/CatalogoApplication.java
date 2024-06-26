@@ -29,6 +29,7 @@ public class CatalogoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicación arrancada...");
 		srvFilm.getAll().forEach(System.out::println);
+		System.out.println(srvFilm.getOne(999));
 		
 	}
 

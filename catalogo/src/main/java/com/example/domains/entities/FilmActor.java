@@ -62,9 +62,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
 	}
 
 
-	public FilmActor(FilmActorPK id, Actor actor, Film film) {
-		super();
-		this.id = id;
+	public FilmActor(Actor actor, Film film) {
 		this.actor = actor;
 		this.film = film;
 	}
