@@ -70,7 +70,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 		this.actorId = actorId;
 	}
 	
-	public Actor(int actorId, String firstName, String lastName) {
+	public Actor(@Positive int actorId, String firstName, String lastName) {
 		this.actorId = actorId;
 		this.firstName = firstName;
 		this.lastName = lastName;
