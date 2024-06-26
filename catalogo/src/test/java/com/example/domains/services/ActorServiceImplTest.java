@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 
 import com.example.domains.contracts.repositories.ActorRepository;
 import com.example.domains.contracts.services.ActorService;
@@ -24,7 +25,7 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 
 @DataJpaTest
-//@ComponentScan(basePackages = "com.example")
+@ComponentScan(basePackages = "com.example")
 class ActorServiceImplTest {
 
 	@MockBean
@@ -80,5 +81,8 @@ class ActorServiceImplTest {
 		when(dao.existsById(1)).thenReturn(true);
 		assertThrows(DuplicateKeyException.class, () -> srv.add(new Actor(1, "PP", "ILLO")));
 	}
+	
+	
+
 
 }
