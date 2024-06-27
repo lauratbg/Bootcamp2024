@@ -9,5 +9,5 @@ public class Persona {
 	private long id;
 	private String nombre; 
 	private String correo; 
-	private String ip; 
-}   
+	private String ip;
+}
