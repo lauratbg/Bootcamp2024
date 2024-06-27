@@ -9,7 +9,6 @@ import java.util.Objects;
 
 import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.AttributeConverter;
@@ -29,10 +28,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
@@ -98,68 +97,74 @@ public class Film extends EntityBase<Film> implements Serializable {
 	
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="film_id", unique=true, nullable=false)
-	@Positive
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "film_id", unique = true, nullable = false)
 	private int filmId;
 
 	@Lob
 	private String description;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
-	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	@PastOrPresent
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
 	private Timestamp lastUpdate;
 
 	@Positive
-	private int length;
+	private Integer length;
 
 	@Convert(converter = RatingConverter.class)
 	private Rating rating;
 
-	@Column(name="release_year")
+	// @Temporal(TemporalType.DATE)
+	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
+	@Min(1901)
+	@Max(2155)
+	@Column(name = "release_year")
 	private Short releaseYear;
 
-	@Column(name="rental_duration", nullable=false)
+	@NotNull
+	@Positive
+	@Column(name = "rental_duration", nullable = false)
 	private byte rentalDuration;
 
-	@Digits(integer=2, fraction=2)
+	@NotNull
+	@Digits(integer = 2, fraction = 2)
 	@DecimalMin(value = "0.0", inclusive = false)
-	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
+	@Column(name = "rental_rate", nullable = false, precision = 10, scale = 2)
 	private BigDecimal rentalRate;
 
+	@NotNull
 	@Digits(integer = 3, fraction = 2)
 	@DecimalMin(value = "0.0", inclusive = false)
-	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
+	@Column(name = "replacement_cost", nullable = false, precision = 10, scale = 2)
 	private BigDecimal replacementCost;
 
-	@Column(nullable=false, length=128)
-	@Size(max=128)
 	@NotBlank
+	@Size(max = 128)
+	@Column(nullable = false, length = 128)
 	private String title;
 
-	//bi-directional many-to-one association to Language
+	// bi-directional many-to-one association to Language
 	@ManyToOne
-	@JoinColumn(name="language_id", nullable=false)
-	@JsonManagedReference
+	@JoinColumn(name = "language_id")
 	@NotNull
+	@JsonManagedReference
 	private Language language;
 
-	//bi-directional many-to-one association to Language
+	// bi-directional many-to-one association to Language
 	@ManyToOne
-	@JoinColumn(name="original_language_id")
+	@JoinColumn(name = "original_language_id")
 	@JsonManagedReference
 	private Language languageVO;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	// bi-directional many-to-one association to FilmActor
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonBackReference
-	private List<FilmActor> filmActors;
+	private List<FilmActor> filmActors = new ArrayList<FilmActor>();
 
-	//bi-directional many-to-one association to FilmCategory
-	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	// bi-directional many-to-one association to FilmCategory
+	@OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonBackReference
-	private List<FilmCategory> filmCategories;
+	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
+
 
 	public Film() {
 	}
@@ -169,8 +174,32 @@ public class Film extends EntityBase<Film> implements Serializable {
 		this.filmId = filmId;
 	}
 	
+	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive byte rentalDuration,
+			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
+		super();
+		this.title = title;
+		this.language = language;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.replacementCost = replacementCost;
+	}
+
+	public Film(int filmId, @NotBlank @Size(max = 128) String title, @NotNull Language language,
+			@NotNull @Positive byte rentalDuration,
+			@NotNull @Digits(integer = 2, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal rentalRate,
+			@NotNull @Digits(integer = 3, fraction = 2) @DecimalMin(value = "0.0", inclusive = false) BigDecimal replacementCost) {
+		super();
+		this.filmId = filmId;
+		this.title = title;
+		this.language = language;
+		this.rentalDuration = rentalDuration;
+		this.rentalRate = rentalRate;
+		this.replacementCost = replacementCost;
+	}
+
 	public Film(int filmId, @NotBlank @Size(max = 128) String title, String description, @Min(1895) Short releaseYear,
-			@NotNull Language language, Language languageVO, @Positive Byte rentalDuration,
+			@NotNull Language language, Language languageVO, @Positive byte rentalDuration,
 			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
 			@Positive Integer length,
 			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,
@@ -188,22 +217,8 @@ public class Film extends EntityBase<Film> implements Serializable {
 		this.replacementCost = replacementCost;
 		this.rating = rating;
 	}
-	
-	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive Byte rentalDuration,
-			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
-			@Positive int length,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
-		super();
-		this.title = title;
-		this.language = language;
-		this.rentalDuration = rentalDuration;
-		this.rentalRate = rentalRate;
-		this.length = length;
-		this.replacementCost = replacementCost;
-	}
-	
 
-
+	
 	public int getFilmId() {
 		return this.filmId;
 	}
@@ -371,7 +386,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 		}
 
 		public void addActor(Actor actor) {
-			FilmActor filmActor = new FilmActor(actor, this);
+			FilmActor filmActor = new FilmActor(this, actor);
 			filmActors.add(filmActor);
 		}
 
@@ -407,7 +422,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 		}
 
 		public void addCategory(Category item) {
-			FilmCategory filmCategory = new FilmCategory(item, this);
+			FilmCategory filmCategory = new FilmCategory(this, item);
 			filmCategories.add(filmCategory);
 		}
 
