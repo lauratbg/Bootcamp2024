@@ -385,6 +385,10 @@ public class Film extends EntityBase<Film> implements Serializable {
 				return;
 			filmActors.remove(filmActor.get());
 		}
+		
+		public void removeActor(int actorId) {
+			removeActor(new Actor(actorId));
+		}
 
 		// Gestión de categorias
 
@@ -418,6 +422,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 			filmCategories.remove(filmCategory.get());
 		}
 		
+		
 
 	@Override
 	public int hashCode() {
@@ -437,6 +442,31 @@ public class Film extends EntityBase<Film> implements Serializable {
 		return filmId == other.filmId;
 	}
 
+	public Film merge(Film target) {
+		target.title = title;
+		target.description = description;
+		target.releaseYear = releaseYear;
+		target.language = language;
+		target.languageVO = languageVO;
+		target.rentalDuration = rentalDuration;
+		target.rentalRate = rentalRate;
+		target.length = length;
+		target.replacementCost = replacementCost;
+		target.rating = rating;
+		// Borra los actores que sobran
+		target.getActors().stream().filter(item -> !getActors().contains(item))
+				.forEach(item -> target.removeActor(item));
+		// Añade los actores que faltan
+		getActors().stream().filter(item -> !target.getActors().contains(item)).forEach(item -> target.addActor(item));
+		// Borra las categorias que sobran
+		target.getCategories().stream().filter(item -> !getCategories().contains(item))
+				.forEach(item -> target.removeCategory(item));
+		// Añade las categorias que faltan
+		getCategories().stream().filter(item -> !target.getCategories().contains(item))
+				.forEach(item -> target.addCategory(item));
+		return target;
+	}
+	
 
 	@Override
 	public String toString() {

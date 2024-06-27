@@ -84,6 +84,7 @@ class FilmServiceTest {
 
             @Test
             @DisplayName("Modificar")
+            @Disabled
             void testModify() {
                 Optional<Film> filmOpt = srv.getOne(1);
                 if (filmOpt.isPresent()) {

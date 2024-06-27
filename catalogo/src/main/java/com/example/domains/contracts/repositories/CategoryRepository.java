@@ -1,7 +1,8 @@
 package com.example.domains.contracts.repositories;
 
-import com.example.domains.core.contracts.repositories.ProjectionsAndSpecificationJpaRepository;
+import org.springframework.data.repository.ListCrudRepository;
+
 import com.example.domains.entities.Category;
 
-public interface CategoryRepository extends ProjectionsAndSpecificationJpaRepository<Category, Integer>{
+public interface CategoryRepository extends ListCrudRepository<Category, Integer>{
 }

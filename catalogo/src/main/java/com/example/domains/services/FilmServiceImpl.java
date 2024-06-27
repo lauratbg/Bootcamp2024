@@ -84,9 +84,8 @@ public class FilmServiceImpl implements FilmService {
 			throw new InvalidDataException("No puede ser nulo");
 		if(item.isInvalid())
 			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
-		if (!dao.existsById(item.getFilmId()))
-			throw new NotFoundException();
-		return dao.save(item);
+		var leido = dao.findById(item.getFilmId()).orElseThrow(()-> new NotFoundException());
+		return dao.save(item.merge(leido));
 	}
 
 	@Override
@@ -108,5 +107,6 @@ public class FilmServiceImpl implements FilmService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
