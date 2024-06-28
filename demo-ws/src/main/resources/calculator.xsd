@@ -18,4 +18,49 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="subRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="1" name="op1" type="xs:double" />
+				<xs:element minOccurs="1" maxOccurs="1" name="op2" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="subResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="subResult" minOccurs="1" maxOccurs="1" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mulRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="1" name="op1" type="xs:double" />
+				<xs:element minOccurs="1" maxOccurs="1" name="op2" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="mulResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="mulResult" minOccurs="1" maxOccurs="1" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="divRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="1" maxOccurs="1" name="op1" type="xs:double" />
+				<xs:element minOccurs="1" maxOccurs="1" name="op2" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="divResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="divResult" minOccurs="1" maxOccurs="1" type="xs:double" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 </xs:schema>
