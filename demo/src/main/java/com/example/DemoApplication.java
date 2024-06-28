@@ -8,8 +8,9 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
-import com.example.webservices.schemas.calculator.AddRequest;
-import com.example.webservices.schemas.calculator.AddResponse;
+import com.example.webservice.schema.AddRequest;
+import com.example.webservice.schema.AddResponse;
+
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
