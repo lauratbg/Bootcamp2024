@@ -4,8 +4,8 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 import com.example.domains.contracts.proxies.CalculatorProxy;
-import com.example.webservice.schema.AddRequest;
-import com.example.webservice.schema.AddResponse;
+import com.example.webservices.schemas.calculator.AddRequest;
+import com.example.webservices.schemas.calculator.AddResponse;
 
 public class CalculatorProxyImpl extends WebServiceGatewaySupport implements CalculatorProxy {
 	public double add(double a, double b) {
