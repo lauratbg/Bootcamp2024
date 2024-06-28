@@ -1,15 +1,10 @@
-.__   __ ___.            
-|  |_/  |\_ |__    ____  
-|  |\   __\ __ \  / ___\ 
-|  |_|  | | \_\ \/ /_/  >
-|____/__| |___  /\___  / 
-              \//_____/  
 
-***************************************
-*                                     *
-*            	LOTES                 *
-*           Version: 1.0.0            *
-*                                     *
-*  Welcome to My Spring Boot Project  *
-*                                     *
-***************************************
+    ___________      _________         ----------------------------------------------------------------------------------------------------
+   |           \    /         \       | Application | ${info.app.name} (${info.app.version})
+   |_____       \  /       _   \      |             | ${info.app.description}
+         |       \/       | \   \     | Profile     | ${spring.profiles.active:DEFAULT}
+         |                |__\   \    | Java VM     | ${java.specification.vendor} ${java.specification.version} (v${java.version})
+  ___    |    |\    /|     ___    \   | Spring Boot |${spring-boot.formatted-version}
+ |   |___|    | \  / |    |   \    \  | Process ID  | ${PID}
+ |____________|  \/  |____|    \____\  ----------------------------------------------------------------------------------------------------
+                                      Copyright © All rights reserved.

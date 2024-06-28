@@ -11,7 +11,7 @@ import com.example.models.PersonaDTO;
 @Component
 public class PersonaItemProcessor implements ItemProcessor<PersonaDTO, Persona> {
 	private static final Logger log = LoggerFactory.getLogger(PersonaItemProcessor.class);
-
+	
 	@Override
 	public Persona process(PersonaDTO item) throws Exception {	 
 		if(item.getId() % 2 == 0 && "Male".equals(item.getSexo())) return null;

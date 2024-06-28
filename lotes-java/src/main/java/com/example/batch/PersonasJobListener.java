@@ -14,7 +14,7 @@ import com.example.models.Persona;
 @Component
 public class PersonasJobListener implements JobExecutionListener {
 	private static final Logger log = LoggerFactory.getLogger(PersonasJobListener.class);
-
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;	
 
