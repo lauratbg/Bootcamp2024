@@ -87,7 +87,7 @@ Con este proyecto, he buscado implementar un sistema completo y funcional que de
 
 ## lotes-java 
 Este proyecto es una implementación de Spring Batch diseñada para procesar datos de personas a partir de archivos `.csv`, bases de datos y archivos XML. Está orientado a aprender y comprender el uso de Spring Batch, incluyendo configuraciones de base de datos, DTOs y entidades, item processors, job listeners y configuraciones de jobs batch.
-El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spring Batch para realizar varias tareas de procesamiento de datos. A
+El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spring Batch para realizar varias tareas de procesamiento de datos. 
 
 ## lotes-xml
 Proyecto similar al anterior pero empleando configuraciones basadas en XML.
