@@ -84,3 +84,15 @@ El proyecto incluye una serie de tests para asegurar el correcto funcionamiento 
 Se han desarrollado suficientes tests para demostrar mi habilidad y conocimiento en la implementación de un sistema robusto y bien estructurado, aunque no se ha testeado completamente todo el proyecto.
 
 Con este proyecto, he buscado implementar un sistema completo y funcional que demuestra mi capacidad para gestionar relaciones entre entidades, realizar validaciones adecuadas, y utilizar JPA para la persistencia de datos, todo ello complementado con un conjunto significativo de pruebas para garantizar la calidad del software.
+
+## lotes-java
+
+Este proyecto es una implementación de Spring Batch diseñada para procesar datos de personas a partir de archivos `.csv`, bases de datos y archivos XML. Está orientado a aprender y comprender el uso de Spring Batch, incluyendo configuraciones de base de datos, DTOs y entidades, item processors, job listeners y configuraciones de jobs batch.
+El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spring Batch para realizar varias tareas de procesamiento de datos. A continuación, se describen las principales características y pasos involucrados:
+
+
+
+
+
+
+
