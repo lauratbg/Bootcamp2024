@@ -92,6 +92,9 @@ El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spri
 ## lotes-xml
 Proyecto similar al anterior pero empleando configuraciones basadas en XML.
 
+## demo-ws
+
+
 
 
 
