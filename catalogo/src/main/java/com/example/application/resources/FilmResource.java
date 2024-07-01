@@ -2,6 +2,7 @@ package com.example.application.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.domains.contracts.services.FilmService;
 import com.example.domains.entities.Film;
+import com.example.domains.entities.models.ActorDTO;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -62,6 +64,17 @@ public class FilmResource {
 
 	}
 
+	@GetMapping(path = "/{id}/actores")
+	public List<ActorDTO> getActores(@PathVariable int id) throws NotFoundException { 												
+		var item = srv.getOne(id);
+		if (item.isEmpty())
+			throw new NotFoundException();
+
+		 return item.get().getActors().stream()
+		            .map(ActorDTO::from)
+		            .collect(Collectors.toList());
+	}
+	
 
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody Film item)

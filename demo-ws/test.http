@@ -34,6 +34,11 @@ Accept: application/pdf,application/json
 
 ###
 
+get http://localhost:8010/api/peliculas/v1/1/actores
+Accept: application/pdf,application/json
+
+###
+
 get http://localhost:8010/api/peliculas/v1?modo=long
 Accept: application/xml
 
