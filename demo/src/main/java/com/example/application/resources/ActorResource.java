@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,45 +40,50 @@ public class ActorResource {
 
 	// si no le doy mas información, coge la ruta anterior
 	@GetMapping
-	public List<ActorShort> getAll() {
-		return srv.getByProjection(ActorShort.class);
+	public List getAll(@RequestParam(required = false, defaultValue = "long") String modo) {
+		if (modo.equals("short"))
+			return srv.getByProjection(ActorShort.class);
+		return srv.getByProjection(ActorDTO.class);
+
 	}
 
 	@GetMapping(params = "page")
 	public Page<ActorShort> getAll(Pageable page) {
 		return srv.getByProjection(page, ActorShort.class);
 	}
-	
-	@GetMapping(path = "/{id}") 
-	public ActorDTO getOne(@PathVariable int id) throws NotFoundException{ // si los llamo de la misma manera con poner esta anotación sirve
+
+	@GetMapping(path = "/{id}")
+	public ActorDTO getOne(@PathVariable int id) throws NotFoundException { // si los llamo de la misma manera con poner
+																			// esta anotación sirve
 		var item = srv.getOne(id);
-		if(item.isEmpty())
+		if (item.isEmpty())
 			throw new NotFoundException();
 		return ActorDTO.from(item.get());
-		
+
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
+	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item)
+			throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var newItem = srv.add(ActorDTO.from(item));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newItem.getActorId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
-	
+
 	@PutMapping(path = "/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT) //204
-	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
-		if(id != item.getActorId())
+	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
+	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item)
+			throws BadRequestException, NotFoundException, InvalidDataException {
+		if (id != item.getActorId())
 			throw new BadRequestException("No coinciden los ids");
 		srv.modify(ActorDTO.from(item));
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT) //204
-	public void delete(@PathVariable int id)  {
+	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
+	public void delete(@PathVariable int id) {
 		srv.deleteById(id);
 	}
-
 
 }
