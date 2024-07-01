@@ -1,5 +1,8 @@
 package com.example.application.endpoints;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -30,7 +33,7 @@ public class CalculatorEndpoint {
 	@ResponsePayload
 	public SubResponse sub(@RequestPayload SubRequest request) {
 		var result = new SubResponse();
-		result.setSubResult(request.getOp1() - request.getOp2());
+		result.setSubResult(redondea(request.getOp1() - request.getOp2()));
 		return result;
 	}
 	
@@ -39,7 +42,7 @@ public class CalculatorEndpoint {
 	@ResponsePayload
 	public MulResponse mul(@RequestPayload MulRequest request) {
 		var result = new MulResponse();
-		result.setMulResult(request.getOp1() * request.getOp2());
+		result.setMulResult(redondea(request.getOp1() * request.getOp2()));
 		return result;
 	}
 	
@@ -47,8 +50,12 @@ public class CalculatorEndpoint {
 	@ResponsePayload
 	public DivResponse div(@RequestPayload DivRequest request) {
 		var result = new DivResponse();
-		result.setDivResult(request.getOp1() / request.getOp2());
+		result.setDivResult(redondea(request.getOp1() / request.getOp2()));
 		return result;
+	}
+	
+	private double redondea(double x) {
+		return (new BigDecimal(x)).setScale(16, RoundingMode.HALF_UP).doubleValue();
 	}
 
 }

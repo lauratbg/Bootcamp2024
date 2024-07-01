@@ -23,7 +23,7 @@ public class DemoApplication implements CommandLineRunner {
 	CommandLineRunner lookup(CalculatorProxy client) {
 		return args -> {
 			System.err.println("Calculo remoto (suma) --> " + client.add(3, 2));
-			System.err.println("Calculo remoto (resta) --> " + client.sub(3, 2));
+			System.err.println("Calculo remoto (resta 1-0.9) --> " + client.sub(1, 0.9));
 			System.err.println("Calculo remoto (mul) --> " + client.mul(3, 2));
 			System.err.println("Calculo remoto (div) --> " + client.div(3, 2));
 		};
