@@ -93,7 +93,8 @@ El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spri
 Proyecto similar al anterior pero empleando configuraciones basadas en XML.
 
 ## demo-ws
-
+### Get started
+Para comprobar que funciona, hay que tener funcionando la base de datos en podman. Después, hay que tener ejecutando el servidor que es este proyecto y por último, ejecutar el cliente que está en el proyecto **demo**.
 
 
 
