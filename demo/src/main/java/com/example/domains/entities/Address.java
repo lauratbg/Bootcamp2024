@@ -1,9 +1,19 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
-import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
 /**
@@ -32,9 +42,6 @@ public class Address implements Serializable {
 
 	@Column(name="last_update", nullable=false)
 	private Timestamp lastUpdate;
-
-	@Column(nullable=false)
-	private Object location;
 
 	@Column(nullable=false, length=20)
 	private String phone;
@@ -102,13 +109,6 @@ public class Address implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public Object getLocation() {
-		return this.location;
-	}
-
-	public void setLocation(Object location) {
-		this.location = location;
-	}
 
 	public String getPhone() {
 		return this.phone;
