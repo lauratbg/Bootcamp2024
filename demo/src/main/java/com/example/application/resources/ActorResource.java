@@ -27,6 +27,7 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -60,6 +61,20 @@ public class ActorResource {
 			throw new NotFoundException();
 		return ActorDTO.from(item.get());
 
+	}
+
+	record Peli(int id, String titulo) {
+
+	}
+
+	@GetMapping(path = "/{id}/pelis")
+	@Transactional
+	public List<Peli> getPelis(@PathVariable int id) throws NotFoundException {
+		var item = srv.getOne(id);
+		if (item.isEmpty())
+			throw new NotFoundException();
+		return item.get().getFilmActors().stream().map(o -> new Peli(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+				.toList();
 	}
 
 	@PostMapping

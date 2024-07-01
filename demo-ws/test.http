@@ -34,12 +34,12 @@ Accept: application/pdf,application/json
 
 ###
 
-get http://localhost:8001/api/actores/v1?modo=largo
+get http://localhost:8001/api/actores/v1
 Accept: application/xml
 
 ###
 
-get http://localhost:8001/api/actores/v1/1
+get http://localhost:8001/api/actores/v1/2/pelis
 Accept: application/pdf,application/json
 
 ###
