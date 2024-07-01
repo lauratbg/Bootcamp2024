@@ -152,7 +152,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	}
 	
 	public void jubilate() {
-		
+		System.out.println("Jubílate");
 	}
 	
 	public void recibePremio(String premio) {

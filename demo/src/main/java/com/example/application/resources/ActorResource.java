@@ -76,6 +76,15 @@ public class ActorResource {
 		return item.get().getFilmActors().stream().map(o -> new Peli(o.getFilm().getFilmId(), o.getFilm().getTitle()))
 				.toList();
 	}
+	
+	@DeleteMapping(path = "/{id}/jubilacion")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void jubilar(@PathVariable int id) throws NotFoundException {
+		var item = srv.getOne(id);
+		if (item.isEmpty())
+			throw new NotFoundException();
+		item.get().jubilate();
+	}
 
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item)
