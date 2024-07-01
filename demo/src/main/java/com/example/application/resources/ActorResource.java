@@ -3,6 +3,8 @@ package com.example.application.resources;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,12 +39,17 @@ public class ActorResource {
 
 	// si no le doy mas información, coge la ruta anterior
 	@GetMapping
-	private List<ActorShort> getAll() {
+	public List<ActorShort> getAll() {
 		return srv.getByProjection(ActorShort.class);
 	}
 
+	@GetMapping(params = "page")
+	public Page<ActorShort> getAll(Pageable page) {
+		return srv.getByProjection(page, ActorShort.class);
+	}
+	
 	@GetMapping(path = "/{id}") 
-	private ActorDTO getOne(@PathVariable int id) throws NotFoundException{ // si los llamo de la misma manera con poner esta anotación sirve
+	public ActorDTO getOne(@PathVariable int id) throws NotFoundException{ // si los llamo de la misma manera con poner esta anotación sirve
 		var item = srv.getOne(id);
 		if(item.isEmpty())
 			throw new NotFoundException();
