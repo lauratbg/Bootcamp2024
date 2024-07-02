@@ -91,12 +91,14 @@ public class FilmResource {
 	}
 	
 	@GetMapping(path = "/lang/{language}")
-	public List<FilmShort> getByLanguage(@PathVariable String language) throws NotFoundException { 	
+	public ResponseEntity<?> getByLanguage(@PathVariable String language) throws NotFoundException { 	
 		List<FilmShort> films = new ArrayList<FilmShort>();
 		for(Film f : srv.getAll())
 			if(f.getLanguage().getName().toUpperCase().equals(language.toUpperCase()))
 				films.add(FilmShort.from(f));
-		return films;
+		if(films.isEmpty())
+			  return new ResponseEntity<>("Language not found", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(films, HttpStatus.OK);
 	}
 
 	@PostMapping
