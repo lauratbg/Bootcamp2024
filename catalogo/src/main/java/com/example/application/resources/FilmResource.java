@@ -2,6 +2,7 @@ package com.example.application.resources;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,14 @@ public class FilmResource {
 		            .collect(Collectors.toList());
 	}
 	
+	@GetMapping(path = "/lang/{language}")
+	public List<FilmShort> getByLanguage(@PathVariable String language) throws NotFoundException { 	
+		List<FilmShort> films = new ArrayList<FilmShort>();
+		for(Film f : srv.getAll())
+			if(f.getLanguage().getName().toUpperCase().equals(language.toUpperCase()))
+				films.add(FilmShort.from(f));
+		return films;
+	}
 
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody Film item)
