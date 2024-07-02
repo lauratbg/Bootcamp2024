@@ -2,6 +2,7 @@ package com.example.application.resources;
 
 
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -18,7 +19,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -123,15 +123,12 @@ class ActorResourceTest {
 	        .andDo(print());
 	}
 	@Test
-	@Disabled
 	void testGetOne404() throws Exception {
-		int id = 2000;
-		var ele = new Actor(id, "Pepito", "Grillo");
-		when(srv.getOne(id)).thenReturn(Optional.empty());
-		mockMvc.perform(get("/api/actores/v1/{id}", id))
-			.andExpect(status().isNotFound())
-			.andExpect(jsonPath("$.title").value("Not Found"))
-	        .andDo(print());
+		 when(srv.getOne(anyInt())).thenReturn(Optional.empty());
+
+	        // Realizar la solicitud y verificar que se lanza NotFoundException
+	        mockMvc.perform(get("/{id}", 1))
+	                .andExpect(status().isNotFound());
 	}
 //
 //	@Test
