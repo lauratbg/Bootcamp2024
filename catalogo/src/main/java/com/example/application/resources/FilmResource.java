@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +26,6 @@ import com.example.domains.entities.Film;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.FilmDTO;
 import com.example.domains.entities.models.FilmShort;
-import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
@@ -122,14 +120,8 @@ public class FilmResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	@PutMapping(path = "/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
-	public void update(@PathVariable int id, @Valid @RequestBody Film item)
-			throws BadRequestException, NotFoundException, InvalidDataException {
-		if (id != item.getFilmId())
-			throw new BadRequestException("No coinciden los ids");
-		srv.modify(item);
-	}
+	
+
 
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
