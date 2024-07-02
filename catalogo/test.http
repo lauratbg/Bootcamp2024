@@ -64,3 +64,8 @@ Content-Type: application/json
 get http://localhost:8010/api/peliculas/v1/lang/es
 Accept: application/pdf,application/json
 
+###
+
+get http://localhost:8010/api/catalogo/v1/novedades
+Accept: application/pdf,application/json
+
