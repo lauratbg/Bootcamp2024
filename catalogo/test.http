@@ -40,7 +40,7 @@ Accept: application/pdf,application/json
 ###
 
 get http://localhost:8010/api/peliculas/v1?modo=long
-Accept: application/xml
+Accept: application/json
 
 ###
 
@@ -58,6 +58,7 @@ Content-Type: application/json
    "nombre": "Servicio",
    "apellidos": "Rest"
 }
+
 
 ###
 

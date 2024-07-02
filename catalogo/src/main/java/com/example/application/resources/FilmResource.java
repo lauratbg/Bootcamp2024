@@ -25,12 +25,11 @@ import com.example.domains.contracts.services.FilmService;
 import com.example.domains.entities.Film;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.FilmDTO;
+import com.example.domains.entities.models.FilmEditDTO;
 import com.example.domains.entities.models.FilmShort;
-import com.example.exceptions.DuplicateKeyException;
-import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
-import jakarta.validation.Valid;
+import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/peliculas/v1")
@@ -112,11 +111,12 @@ public class FilmResource {
 
 
 	@PostMapping
-	public ResponseEntity<Object> create(@Valid @RequestBody Film item)
-			throws DuplicateKeyException, InvalidDataException {
-		var newItem = srv.add(item);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newItem.getFilmId()).toUri();
+	@ResponseStatus(code = HttpStatus.CREATED)
+	@Transactional
+	public ResponseEntity<Object> add(@RequestBody FilmEditDTO item) throws Exception {
+		Film newItem = srv.add(FilmEditDTO.from(item));
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newItem.getFilmId())
+				.toUri();
 		return ResponseEntity.created(location).build();
 	}
 
