@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.domains.contracts.services.ActorService;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.ActorShort;
+import com.example.domains.entities.models.FilmDTO;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -63,17 +64,13 @@ public class ActorResource {
 
 	}
 
-	record Peli(int id, String titulo) {
-
-	}
-
 	@GetMapping(path = "/{id}/pelis")
 	@Transactional
-	public List<Peli> getPelis(@PathVariable int id) throws NotFoundException {
+	public List<FilmDTO> getPelis(@PathVariable int id) throws NotFoundException {
 		var item = srv.getOne(id);
 		if (item.isEmpty())
 			throw new NotFoundException();
-		return item.get().getFilmActors().stream().map(o -> new Peli(o.getFilm().getFilmId(), o.getFilm().getTitle()))
+		return item.get().getFilmActors().stream().map(o -> new FilmDTO(o.getFilm().getFilmId(), o.getFilm().getTitle()))
 				.toList();
 	}
 	

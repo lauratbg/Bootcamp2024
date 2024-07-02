@@ -123,6 +123,7 @@ public class Category extends EntityBase<Category> implements Serializable {
 
 		return filmCategory;
 	}
+	
 
 	@Override
 	public int hashCode() {

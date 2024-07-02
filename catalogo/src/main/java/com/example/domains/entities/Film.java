@@ -35,14 +35,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-
 /**
  * The persistent class for the film database table.
  * 
  */
 @Entity
-@Table(name="film")
-@NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
+@Table(name = "film")
+@NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
 public class Film extends EntityBase<Film> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -94,8 +93,7 @@ public class Film extends EntityBase<Film> implements Serializable {
 			return value == null ? null : Rating.getEnum(value);
 		}
 	}
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "film_id", unique = true, nullable = false)
@@ -165,15 +163,13 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@JsonBackReference
 	private List<FilmCategory> filmCategories = new ArrayList<FilmCategory>();
 
-
 	public Film() {
 	}
 
-	
 	public Film(int filmId) {
 		this.filmId = filmId;
 	}
-	
+
 	public Film(@NotBlank @Size(max = 128) String title, @NotNull Language language, @Positive byte rentalDuration,
 			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
 			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
@@ -218,7 +214,11 @@ public class Film extends EntityBase<Film> implements Serializable {
 		this.rating = rating;
 	}
 
-	
+	public Film(int filmId, String titulo) {
+		this.filmId = filmId;
+		this.title = titulo;
+	}
+
 	public int getFilmId() {
 		return this.filmId;
 	}
@@ -371,79 +371,76 @@ public class Film extends EntityBase<Film> implements Serializable {
 
 	// Gestión de actores
 
-		public List<Actor> getActors() {
-			return this.filmActors.stream().map(item -> item.getActor()).toList();
-		}
+	public List<Actor> getActors() {
+		return this.filmActors.stream().map(item -> item.getActor()).toList();
+	}
 
-		public void setActors(List<Actor> source) {
-			if (filmActors == null || !filmActors.isEmpty())
-				clearActors();
-			source.forEach(item -> addActor(item));
-		}
+	public void setActors(List<Actor> source) {
+		if (filmActors == null || !filmActors.isEmpty())
+			clearActors();
+		source.forEach(item -> addActor(item));
+	}
 
-		public void clearActors() {
-			filmActors = new ArrayList<FilmActor>();
-		}
+	public void clearActors() {
+		filmActors = new ArrayList<FilmActor>();
+	}
 
-		public void addActor(Actor actor) {
-			FilmActor filmActor = new FilmActor(this, actor);
-			filmActors.add(filmActor);
-		}
+	public void addActor(Actor actor) {
+		FilmActor filmActor = new FilmActor(this, actor);
+		filmActors.add(filmActor);
+	}
 
-		public void addActor(int actorId) {
-			addActor(new Actor(actorId));
-		}
+	public void addActor(int actorId) {
+		addActor(new Actor(actorId));
+	}
 
-		public void removeActor(Actor actor) {
-			var filmActor = filmActors.stream().filter(item -> item.getActor().equals(actor)).findFirst();
-			if (filmActor.isEmpty())
-				return;
-			filmActors.remove(filmActor.get());
-		}
-		
-		public void removeActor(int actorId) {
-			removeActor(new Actor(actorId));
-		}
+	public void removeActor(Actor actor) {
+		var filmActor = filmActors.stream().filter(item -> item.getActor().equals(actor)).findFirst();
+		if (filmActor.isEmpty())
+			return;
+		filmActors.remove(filmActor.get());
+	}
 
-		// Gestión de categorias
+	public void removeActor(int actorId) {
+		removeActor(new Actor(actorId));
+	}
 
-		public List<Category> getCategories() {
-			return this.filmCategories.stream().map(item -> item.getCategory()).toList();
-		}
+	// Gestión de categorias
 
-		public void setCategories(List<Category> source) {
-			if (filmCategories == null || !filmCategories.isEmpty())
-				clearCategories();
-			source.forEach(item -> addCategory(item));
-		}
+	public List<Category> getCategories() {
+		return this.filmCategories.stream().map(item -> item.getCategory()).toList();
+	}
 
-		public void clearCategories() {
-			filmCategories = new ArrayList<FilmCategory>();
-		}
+	public void setCategories(List<Category> source) {
+		if (filmCategories == null || !filmCategories.isEmpty())
+			clearCategories();
+		source.forEach(item -> addCategory(item));
+	}
 
-		public void addCategory(Category item) {
-			FilmCategory filmCategory = new FilmCategory(this, item);
-			filmCategories.add(filmCategory);
-		}
+	public void clearCategories() {
+		filmCategories = new ArrayList<FilmCategory>();
+	}
 
-		public void addCategory(int id) {
-			addCategory(new Category(id));
-		}
+	public void addCategory(Category item) {
+		FilmCategory filmCategory = new FilmCategory(this, item);
+		filmCategories.add(filmCategory);
+	}
 
-		public void removeCategory(Category ele) {
-			var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
-			if (filmCategory.isEmpty())
-				return;
-			filmCategories.remove(filmCategory.get());
-		}
-		
-		
+	public void addCategory(int id) {
+		addCategory(new Category(id));
+	}
+
+	public void removeCategory(Category ele) {
+		var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
+		if (filmCategory.isEmpty())
+			return;
+		filmCategories.remove(filmCategory.get());
+	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(filmId);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -481,15 +478,11 @@ public class Film extends EntityBase<Film> implements Serializable {
 				.forEach(item -> target.addCategory(item));
 		return target;
 	}
-	
 
 	@Override
 	public String toString() {
-		return "Film [filmId=" + filmId +", rating=" + rating + ", title=" + title
-				+ ", language=" + language.getName() + "]";
+		return "Film [filmId=" + filmId + ", rating=" + rating + ", title=" + title + ", language=" + language.getName()
+				+ "]";
 	}
-	
-	
-
 
 }
