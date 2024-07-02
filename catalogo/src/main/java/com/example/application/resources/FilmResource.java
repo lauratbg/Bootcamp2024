@@ -100,6 +100,18 @@ public class FilmResource {
 			  return new ResponseEntity<>("Language not found", HttpStatus.NOT_FOUND);
 		return new ResponseEntity<>(films, HttpStatus.OK);
 	}
+	
+	@GetMapping(path = "/rating/{rating}")
+	public ResponseEntity<?> getByRating(@PathVariable String rating) throws NotFoundException { 	
+		List<FilmShort> films = new ArrayList<FilmShort>();
+		for(Film f : srv.getAll())
+			if(f.getRating().getValue().toUpperCase().equals(rating.toUpperCase()))
+				films.add(FilmShort.from(f));
+		if(films.isEmpty())
+			  return new ResponseEntity<>("Language not found", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(films, HttpStatus.OK);
+	}
+
 
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody Film item)
