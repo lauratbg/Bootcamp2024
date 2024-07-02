@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.domains.contracts.services.LanguageService;
 import com.example.domains.entities.Language;
 import com.example.exceptions.BadRequestException;
-import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
@@ -28,6 +27,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/languages/v1")
 public class LanguageResource {
+	
 	private LanguageService srv;
 
 	public LanguageResource(LanguageService srv) {
@@ -52,11 +52,14 @@ public class LanguageResource {
 
 
 	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public ResponseEntity<Object> create(@Valid @RequestBody Language item)
-			throws BadRequestException, DuplicateKeyException, InvalidDataException {
-		var newItem = srv.add(item);
+			throws Exception {
+		if (item.isInvalid())
+			throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+		srv.add(item);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newItem.getLanguageId()).toUri();
+				.buildAndExpand(item.getLanguageId()).toUri();
 		return ResponseEntity.created(location).build();
 	}
 

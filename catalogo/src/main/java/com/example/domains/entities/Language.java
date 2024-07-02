@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,10 +33,11 @@ import jakarta.validation.constraints.Size;
 @NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
 public class Language extends EntityBase<Language> implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static class Partial {}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="language_id", unique=true, nullable=false)
+	@JsonProperty("id")
 	@Positive
 	private int languageId;
 
@@ -47,6 +49,7 @@ public class Language extends EntityBase<Language> implements Serializable {
 	@Column(nullable=false, length=20)
 	@NotBlank
 	@Size(max=20, min=2)
+	@JsonProperty("name")
 	private String name;
 
 	//bi-directional many-to-one association to Film
