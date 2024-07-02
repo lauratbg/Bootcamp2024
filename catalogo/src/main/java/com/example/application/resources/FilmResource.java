@@ -1,5 +1,6 @@
 package com.example.application.resources;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,6 +64,17 @@ public class FilmResource {
 		if (item.isEmpty())
 			throw new NotFoundException();
 		return item.get();
+
+	}
+	
+	record Rental(int filmId, String title, BigDecimal rental) {	}
+	
+	@GetMapping(path = "/{id}/rental")
+	public Rental getRental(@PathVariable int id) throws NotFoundException { 												
+		var item = srv.getOne(id);
+		if (item.isEmpty())
+			throw new NotFoundException();
+		return new Rental(item.get().getFilmId(), item.get().getTitle(), item.get().getRentalRate());
 
 	}
 
