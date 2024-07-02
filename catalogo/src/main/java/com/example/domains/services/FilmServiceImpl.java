@@ -1,6 +1,5 @@
 package com.example.domains.services;
 
-import java.security.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +15,8 @@ import com.example.domains.entities.Film;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
+
+import io.micrometer.common.lang.NonNull;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -102,10 +103,12 @@ public class FilmServiceImpl implements FilmService {
 		return dao.findOne(spec);
 	}
 
+
+
 	@Override
-	public List<Film> novedades(Timestamp fecha) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Film> novedades(@NonNull java.sql.Timestamp fecha) {
+		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);
+
 	}
 
 
