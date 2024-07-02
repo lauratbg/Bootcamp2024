@@ -24,6 +24,7 @@ import com.example.domains.contracts.services.FilmService;
 import com.example.domains.entities.Film;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.FilmDTO;
+import com.example.domains.entities.models.FilmShort;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -44,9 +45,10 @@ public class FilmResource {
 	@GetMapping
 	public List getAll(@RequestParam(required = false, defaultValue = "long") String modo) {
 		if (modo.equals("short"))
-			return srv.getAll().stream().map(o -> new FilmDTO(o.getFilmId(), o.getTitle()))
+			return srv.getAll().stream().map(o -> new FilmShort(o.getFilmId(), o.getTitle()))
 					.toList();
-		return srv.getAll();
+		return srv.getAll().stream().map(o -> new FilmDTO(o.getFilmId(), o.getTitle(), o.getLanguage(), o.getRentalDuration(), o.getRentalRate(), o.getReplacementCost()))
+					.toList();
 
 	}
 	
