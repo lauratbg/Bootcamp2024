@@ -69,3 +69,12 @@ Accept: application/pdf,application/json
 get http://localhost:8010/api/catalogo/v1/novedades
 Accept: application/pdf,application/json
 
+###
+
+delete http://localhost:8010/api/languages/v1
+
+
+###
+
+get http://localhost:8010/api/languages/v1
+Accept: application/pdf,application/json
