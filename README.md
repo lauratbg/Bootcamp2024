@@ -55,7 +55,7 @@ En este proyecto estoy aprendiendo y practicando el uso de anotaciones en prueba
 Este proyecto contiene mi implementación y refactorización de la kata de refactorización "Gilded Rose", basada en la descripción y requisitos proporcionados en  [Gilded Rose Refactoring Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements_es.md) de Emily Bache, siendo el objetivo la creación de tests.
 
 ## catalogo
-Aquí se encuentra un sistema diseñado para gestionar un catálogo de películas. A través de este proyecto, se ha implementado una estructura completa de relaciones entre diferentes entidades que forman parte del catálogo.
+Aquí se encuentra un sistema diseñado para gestionar un catálogo de películas. A través de este proyecto, se ha implementado una estructura completa de relaciones entre diferentes entidades que forman parte del catálogo. Es un microservicio donde todo parte de la raiz.
 
 ### Entidades del Proyecto
 El proyecto incluye las siguientes entidades:
