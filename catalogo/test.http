@@ -79,3 +79,31 @@ delete http://localhost:8010/api/languages/v1
 
 get http://localhost:8010/api/languages/v1
 Accept: application/pdf,application/json
+
+###
+
+post http://localhost:8010/api/languages/v1
+Content-Type: application/json
+
+{"id":123,"name":"Ingles"}
+
+###
+
+
+post http://localhost:8010/api/peliculas/v1
+Content-Type: application/json
+
+{
+    "filmId": 22222,
+    "description": "A thrilling adventure",
+    "length": 120,
+    "rating": "PG-13",
+    "releaseYear": 2024,
+    "rentalDuration": 5,
+    "rentalRate": 4.99,
+    "replacementCost": 19.99,
+    "title": "Aventura en Tebongod",
+    "languageId": 1,
+    "languageVOId": 2
+}
+
