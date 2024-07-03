@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +28,11 @@ import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.FilmDTO;
 import com.example.domains.entities.models.FilmEditDTO;
 import com.example.domains.entities.models.FilmShort;
+import com.example.exceptions.BadRequestException;
 import com.example.exceptions.NotFoundException;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/peliculas/v1")
@@ -120,7 +123,14 @@ public class FilmResource {
 		return ResponseEntity.created(location).build();
 	}
 
-	
+	@PutMapping(path = "/{id}")
+	public FilmEditDTO modify(
+		@PathVariable int id,
+			@Valid @RequestBody FilmEditDTO item) throws Exception {
+		if (item.getFilmId() != id)
+			throw new BadRequestException("No coinciden los identificadores");
+		return FilmEditDTO.from(srv.modify(FilmEditDTO.from(item)));
+	}
 
 
 	@DeleteMapping(path = "/{id}")

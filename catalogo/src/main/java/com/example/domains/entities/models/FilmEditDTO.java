@@ -1,6 +1,5 @@
 package com.example.domains.entities.models;
 
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //@Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FilmEditDTO {
 	private int filmId;
 	private String description;
@@ -32,51 +33,30 @@ public class FilmEditDTO {
 	@NotNull
 	private BigDecimal replacementCost;
 	@NotBlank
-	@Size(min=2, max = 128)
+	@Size(min = 2, max = 128)
 	private String title;
 	@NotNull
 	private Integer languageId;
-//	@Schema(description = "El identificador del idioma original de la película")
 	private Integer languageVOId;
-//	@Schema(description = "La lista de identificadores de actores que participan en la película")
 	private List<Integer> actors = new ArrayList<Integer>();
-//	@Schema(description = "La lista de identificadores de categorías asignadas a la película")
-//	@ArraySchema(uniqueItems = true, minItems = 1, maxItems = 3)
 	private List<Integer> categories = new ArrayList<Integer>();
 
- 	public static FilmEditDTO from(Film source) {
-		return new FilmEditDTO(
-				source.getFilmId(), 
-				source.getDescription(),
-				source.getLength(),
-				source.getRating() == null ? null : source.getRating().getValue(),
-				source.getReleaseYear(),
-				source.getRentalDuration(),
-				source.getRentalRate(),
-				source.getReplacementCost(),
-				source.getTitle(),
+	public static FilmEditDTO from(Film source) {
+		return new FilmEditDTO(source.getFilmId(), source.getDescription(), source.getLength(),
+				source.getRating() == null ? null : source.getRating().getValue(), source.getReleaseYear(),
+				source.getRentalDuration(), source.getRentalRate(), source.getReplacementCost(), source.getTitle(),
 				source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
 				source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
-				source.getActors().stream().map(item -> item.getActorId())
-					.collect(Collectors.toList()),
-				source.getCategories().stream().map(item -> item.getCategoryId())
-					.collect(Collectors.toList())
-				);
+				source.getActors().stream().map(item -> item.getActorId()).collect(Collectors.toList()),
+				source.getCategories().stream().map(item -> item.getCategoryId()).collect(Collectors.toList()));
 	}
+
 	public static Film from(FilmEditDTO source) {
-		Film rslt = new Film(
-				source.getFilmId(), 
-				source.getTitle(),
-				source.getDescription(),
-				source.getReleaseYear(),
+		Film rslt = new Film(source.getFilmId(), source.getTitle(), source.getDescription(), source.getReleaseYear(),
 				source.getLanguageId() == null ? null : new Language(source.getLanguageId()),
 				source.getLanguageVOId() == null ? null : new Language(source.getLanguageVOId()),
-				source.getRentalDuration(),
-				source.getRentalRate(),
-				source.getLength(),
-				source.getReplacementCost(),
-				source.getRating() == null ? null : Film.Rating.getEnum(source.getRating())
-				);
+				source.getRentalDuration(), source.getRentalRate(), source.getLength(), source.getReplacementCost(),
+				source.getRating() == null ? null : Film.Rating.getEnum(source.getRating()));
 		source.getActors().stream().forEach(item -> rslt.addActor(item));
 		source.getCategories().stream().forEach(item -> rslt.addCategory(item));
 		return rslt;
