@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -88,14 +87,13 @@ class LanguageResourceTest {
 	}
 
 	@Test
-	@Disabled
 	void testCreate() throws Exception {
 		int id = 1;
 		var ele = new Language(id, "Inglés");
 		when(srv.add(ele)).thenReturn(ele);
 		mockMvc.perform(post("/api/languages/v1")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(ele))
+			.content("{\"id\":1,\"name\":\"Ingles\"}")
 			)
 			.andExpect(status().isCreated())
 	        .andExpect(header().string("Location", "http://localhost/api/languages/v1/1"))

@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -19,53 +20,52 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-
 
 /**
  * The persistent class for the language database table.
  * 
  */
 @Entity
-@Table(name="language")
-@NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
+@Table(name = "language")
+@NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
 public class Language extends EntityBase<Language> implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static class Partial {}
+
+	public static class Partial {
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="language_id", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "language_id", unique = true, nullable = false)
 	@JsonProperty("id")
-	@Positive
 	private int languageId;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-	@PastOrPresent
 	private Timestamp lastUpdate;
 
-	@Column(nullable=false, length=20)
+	@Column(nullable = false, length = 20)
 	@NotBlank
-	@Size(max=20, min=2)
+	@Size(max = 20, min = 2)
 	@JsonProperty("name")
 	private String name;
 
-	//bi-directional many-to-one association to Film
-	@OneToMany(mappedBy="language")
+	// bi-directional many-to-one association to Film
+	@OneToMany(mappedBy = "language")
+	@JsonIgnore
 	@JsonBackReference
 	private List<Film> films;
 
-	//bi-directional many-to-one association to Film
-	@OneToMany(mappedBy="languageVO")
+	// bi-directional many-to-one association to Film
+	@OneToMany(mappedBy = "languageVO")
 	@JsonBackReference
+	@JsonIgnore
 	private List<Film> filmsVO;
 
 	public Language() {
 	}
 
-	
 	public Language(int languageId) {
 		super();
 		this.languageId = languageId;
@@ -83,7 +83,6 @@ public class Language extends EntityBase<Language> implements Serializable {
 		this.films = films;
 		this.filmsVO = filmsVO;
 	}
-
 
 	public int getLanguageId() {
 		return this.languageId;
@@ -158,7 +157,6 @@ public class Language extends EntityBase<Language> implements Serializable {
 		return Objects.hash(languageId);
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -171,13 +169,9 @@ public class Language extends EntityBase<Language> implements Serializable {
 		return languageId == other.languageId;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
-		return "Language [languageId=" + languageId + ", name=" + name + "]" ;
+		return "Language [languageId=" + languageId + ", name=" + name + "]";
 	}
-	
+
 }
