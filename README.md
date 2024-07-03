@@ -22,7 +22,7 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Podman**: Para gestionar contenedores, incluyendo la configuración de una base de datos MySQL con el esquema Sakila.
 - **Proyecciones y Pageable**: Para optimizar y manejar grandes conjuntos de datos de manera eficiente.
 - **Serialización y deserialización con Jackson**: Para JSON y XML.
-
+- **Servicios REST**: Para la implementación y consumo de servicios web robustos y escalables.
 
 ### Tecnologías Utilizadas
 
@@ -36,6 +36,7 @@ Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnolo
 - **Pageable**: Para manejar la paginación y ordenación de grandes conjuntos de datos.
 - **Jackson**: Biblioteca para la serialización y deserialización de objetos en JSON y XML.
 
+También se está usando como servidor del proyecto **demo-ws**
 
 ## demo-maven
 En este proyecto estoy aprendiendo y practicando el uso de anotaciones en pruebas unitarias y de integración con JUnit 5. Entre las anotaciones se incluyen:
@@ -80,6 +81,7 @@ El proyecto incluye una serie de tests para asegurar el correcto funcionamiento 
 - **Tests de Validación**: Verifican que las validaciones de los atributos de las entidades funcionan correctamente.
 - **Tests de Repositorios**: Aseguran que las operaciones de persistencia en los repositorios se realizan de manera adecuada.
 - **Tests de Servicios**: Validan el funcionamiento de los servicios JPA, incluyendo las operaciones CRUD.
+- **Tests de Servicios REST**: Verifican la correcta implementación y funcionamiento de los endpoints REST, asegurando que las APIs devuelvan los resultados esperados y gestionen adecuadamente las peticiones y respuestas.
   
 Se han desarrollado suficientes tests para demostrar mi habilidad y conocimiento en la implementación de un sistema robusto y bien estructurado, aunque no se ha testeado completamente todo el proyecto.
 
