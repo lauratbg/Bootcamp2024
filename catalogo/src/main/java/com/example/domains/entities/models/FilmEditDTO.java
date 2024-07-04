@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import com.example.domains.entities.Film;
 import com.example.domains.entities.Language;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,30 +18,44 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
+@Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class FilmEditDTO {
+	@Schema(description = "Identificador de la película", accessMode = AccessMode.READ_ONLY)
 	private int filmId;
+	@Schema(description = "Una breve descripción o resumen de la trama de la película", minLength = 2)
 	private String description;
+	@Schema(description = "La duración de la película, en minutos", minimum = "0", exclusiveMinimum = true)
 	private Integer length;
+	@Schema(description = "La clasificación por edades asignada a la película", allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})
 //	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$")
 	private String rating;
+	@Schema(description = "El año en que se estrenó la película", minimum = "1901", maximum = "2155")
 	private Short releaseYear;
+	@Schema(description = "La duración del período de alquiler, en días", minimum = "0", exclusiveMinimum = true)
 	@NotNull
 	private Byte rentalDuration;
+	@Schema(description = "El coste de alquilar la película por el período establecido", minimum = "0", exclusiveMinimum = true)
 	@NotNull
 	private BigDecimal rentalRate;
+	@Schema(description = "El importe cobrado al cliente si la película no se devuelve o se devuelve en un estado dañado", minimum = "0", exclusiveMinimum = true)
 	@NotNull
 	private BigDecimal replacementCost;
+	@Schema(description = "El título de la película")
 	@NotBlank
-	@Size(min = 2, max = 128)
+	@Size(min=2, max = 128)
 	private String title;
+	@Schema(description = "El identificador del idioma de la película")
 	@NotNull
 	private Integer languageId;
+	@Schema(description = "El identificador del idioma original de la película")
 	private Integer languageVOId;
+	@Schema(description = "La lista de identificadores de actores que participan en la película")
 	private List<Integer> actors = new ArrayList<Integer>();
+	@Schema(description = "La lista de identificadores de categorías asignadas a la película")
+	@ArraySchema(uniqueItems = true, minItems = 1, maxItems = 3)
 	private List<Integer> categories = new ArrayList<Integer>();
 
 	public static FilmEditDTO from(Film source) {

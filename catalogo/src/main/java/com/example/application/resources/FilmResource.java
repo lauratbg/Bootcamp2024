@@ -33,6 +33,7 @@ import com.example.exceptions.NotFoundException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -135,8 +136,16 @@ public class FilmResource {
 	@Operation(summary = "Obtener películas por calificación", description = "Devuelve una lista de películas por su calificación")
 	@GetMapping(path = "/rating/{rating}")
 	public ResponseEntity<?> getByRating(
-			@Parameter(description = "Calificación de las películas")
-			@PathVariable String rating) throws NotFoundException {
+			@Parameter(
+				    description = "La clasificación por edades asignada a la película", 
+				    examples = {
+				        @ExampleObject(value = "G"),
+				        @ExampleObject(value = "PG"),
+				        @ExampleObject(value = "PG-13"),
+				        @ExampleObject(value = "R"),
+				        @ExampleObject(value = "NC-17")
+				    }
+				) @PathVariable String rating) throws NotFoundException {
 		List<FilmShort> films = new ArrayList<>();
 		for (Film f : srv.getAll())
 			if (f.getRating().getValue().equalsIgnoreCase(rating))
