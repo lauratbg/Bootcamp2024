@@ -190,8 +190,7 @@ public class FilmResource {
 
 	@Operation(summary = "Eliminar una película", description = "Elimina una película de la base de datos")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "204", description = "Película eliminada"),
-			@ApiResponse(responseCode = "404", description = "Película no encontrada") })
+			@ApiResponse(responseCode = "204", description = "Película eliminada")})
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(

@@ -143,8 +143,7 @@ public class ActorResource {
 
 	@Operation(summary = "Eliminar un actor", description = "Elimina un actor específico por su ID")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "204", description = "Actor eliminado correctamente"),
-			@ApiResponse(responseCode = "404", description = "Actor no encontrado") })
+			@ApiResponse(responseCode = "204", description = "Actor eliminado correctamente")})
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@Parameter(description = "ID del actor", example = "1") @PathVariable int id) {

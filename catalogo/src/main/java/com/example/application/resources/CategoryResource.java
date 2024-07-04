@@ -112,8 +112,7 @@ public class CategoryResource {
 
 	@Operation(summary = "Eliminar una categoría", description = "Elimina una categoría específica por su ID")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "204", description = "Categoría eliminada"),
-			@ApiResponse(responseCode = "404", description = "Categoría no encontrada") })
+			@ApiResponse(responseCode = "204", description = "Categoría eliminada")})
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
 	public void delete(@Parameter(description="ID de la categoría", example = "1")@PathVariable int id) {
