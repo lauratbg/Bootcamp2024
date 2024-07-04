@@ -130,7 +130,6 @@ public class ActorResource {
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "204", description = "Actor actualizado correctamente"),
 			@ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
-			@ApiResponse(responseCode = "404", description = "Actor no encontrado"),
 			@ApiResponse(responseCode = "422", description = "Datos inválidos") })
 	@PutMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
