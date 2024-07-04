@@ -11,6 +11,7 @@ import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -42,6 +43,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "film")
 @NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
+@Schema(description = "Entidad que representa una película")
 public class Film extends EntityBase<Film> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -96,19 +98,24 @@ public class Film extends EntityBase<Film> implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único de la película", example = "1", required = true)
 	@Column(name = "film_id", unique = true, nullable = false)
 	private int filmId;
 
 	@Lob
+    @Schema(description = "Descripción de la película", example = "Es una película de miedo.")
 	private String description;
 
 	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @Schema(description = "Marca de tiempo de la última actualización", example = "2023-01-01T12:00:00")
 	private Timestamp lastUpdate;
 
 	@Positive
+    @Schema(description = "Duración de la película en minutos", example = "120")
 	private Integer length;
 
 	@Convert(converter = RatingConverter.class)
+	@Schema(description = "La clasificación por edades asignada a la película", allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})	
 	private Rating rating;
 
 	// @Temporal(TemporalType.DATE)
@@ -116,28 +123,33 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@Min(1901)
 	@Max(2155)
 	@Column(name = "release_year")
+    @Schema(description = "Año en el que salió la película", example = "2001")
 	private Short releaseYear;
 
 	@NotNull
 	@Positive
 	@Column(name = "rental_duration", nullable = false)
+    @Schema(description = "Duración del alquiler", example = "2")
 	private byte rentalDuration;
 
 	@NotNull
 	@Digits(integer = 2, fraction = 2)
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Column(name = "rental_rate", nullable = false, precision = 10, scale = 2)
+    @Schema(description = "Tarifa de alquiler de la película", example = "2.99", required = true)
 	private BigDecimal rentalRate;
 
 	@NotNull
 	@Digits(integer = 3, fraction = 2)
 	@DecimalMin(value = "0.0", inclusive = false)
 	@Column(name = "replacement_cost", nullable = false, precision = 10, scale = 2)
+    @Schema(description = "Costo de reemplazo de la película", example = "19.99", required = true)
 	private BigDecimal replacementCost;
 
 	@NotBlank
 	@Size(max = 128)
 	@Column(nullable = false, length = 128)
+    @Schema(description = "Título de la película", example = "Inception", required = true)
 	private String title;
 
 	// bi-directional many-to-one association to Language
@@ -145,12 +157,14 @@ public class Film extends EntityBase<Film> implements Serializable {
 	@JoinColumn(name = "language_id")
 	@NotNull(message = "Language must not be null")
 	@JsonManagedReference
+    @Schema(description = "Idioma de la película", required = true)
 	private Language language;
 
 	// bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name = "original_language_id")
 	@JsonManagedReference
+    @Schema(description = "Idioma en versión original de la película", required = true)
 	private Language languageVO;
 
 	// bi-directional many-to-one association to FilmActor

@@ -24,11 +24,18 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/categorias/v1")
+@Tag(name = "categorias-service", description = "Mantenimiento de categorias")
+
 public class CategoryResource {
 	private CategoryService srv;
 
@@ -36,6 +43,11 @@ public class CategoryResource {
 		this.srv = srv;
 	}
 
+	@Operation(summary = "Obtener todos las categorías", description = "Obtiene una lista de todas las categorías")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Lista de categorías obtenida correctamente"),
+			@ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
+			@ApiResponse(responseCode = "500", description = "Error en el servidor") })
 	@GetMapping
 	public List<Category> getAll() {
 		return srv.getAll();
@@ -43,8 +55,12 @@ public class CategoryResource {
 	}
 
 
+	@Operation(summary = "Obtener una categoría", description = "Obtiene los detalles de una categoría específico por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Categoría obtenido correctamente"),
+			@ApiResponse(responseCode = "404", description = "Categoría no encontrado") })
 	@GetMapping(path = "/{id}")
-	public Category getOne(@PathVariable int id) throws NotFoundException { 
+	public Category getOne(@Parameter(description = "ID de la categoría", example = "1") @PathVariable int id) throws NotFoundException { 
 		var item = srv.getOne(id);
 		if (item.isEmpty())
 			throw new NotFoundException();
@@ -52,9 +68,10 @@ public class CategoryResource {
 
 	}
 
+	@Operation(summary = "Obtener películas", description = "Obtiene las películas según la categoría")
 	@GetMapping(path = "/{id}/pelis")
 	@Transactional
-	public List<FilmShort> getPelis(@PathVariable int id) throws NotFoundException {
+	public List<FilmShort> getPelis(@Parameter(description="ID de la categoría", example = "1")@PathVariable int id) throws NotFoundException {
 		var item = srv.getOne(id);
 		if (item.isEmpty())
 			throw new NotFoundException();
@@ -62,8 +79,15 @@ public class CategoryResource {
 				.toList();
 	}
 
+	@Operation(summary = "Crear una categoría", description = "Crea una nueva categoría")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "Categoría creada"),
+			@ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
+			@ApiResponse(responseCode = "409", description = "Conflicto: Clave duplicada"),
+			@ApiResponse(responseCode = "422", description = "Datos inválidos") })
+	
 	@PostMapping
-	public ResponseEntity<Object> create(@Valid @RequestBody Category item)
+	public ResponseEntity<Object> create(@Parameter(description="Categoría a crear")@Valid @RequestBody Category item)
 			throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var newItem = srv.add(item);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -71,18 +95,28 @@ public class CategoryResource {
 		return ResponseEntity.created(location).build();
 	}
 
+	@Operation(summary = "Actualizar una categoría", description = "Actualiza los detalles de una categoría específico por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Categoría actualizado correctamente"),
+			@ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
+			@ApiResponse(responseCode = "404", description = "Categoría no encontrado"),
+			@ApiResponse(responseCode = "422", description = "Datos inválidos") })
 	@PutMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
-	public void update(@PathVariable int id, @Valid @RequestBody Category item)
+	public void update(@Parameter(description="ID de la categoría", example = "1")@PathVariable int id, @Parameter(description="Nuevos datos de la categoría a actualizar")@Valid @RequestBody Category item)
 			throws BadRequestException, NotFoundException, InvalidDataException {
 		if (id != item.getCategoryId())
 			throw new BadRequestException("No coinciden los ids");
 		srv.modify(item);
 	}
 
+	@Operation(summary = "Eliminar una categoría", description = "Elimina una categoría específica por su ID")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "204", description = "Categoría eliminada"),
+			@ApiResponse(responseCode = "404", description = "Categoría no encontrada") })
 	@DeleteMapping(path = "/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT) // 204
-	public void delete(@PathVariable int id) {
+	public void delete(@Parameter(description="ID de la categoría", example = "1")@PathVariable int id) {
 		srv.deleteById(id);
 	}
 

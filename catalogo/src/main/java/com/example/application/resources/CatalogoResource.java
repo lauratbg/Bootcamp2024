@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.application.contracts.CatalogoService;
 import com.example.application.models.NovedadesDTO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/catalogo/v1")
+@Tag(name = "catalogo-service", description = "Mantenimiento del catálogo")
+
 public class CatalogoResource {
 	@Autowired
 	private CatalogoService srv;
@@ -21,6 +26,7 @@ public class CatalogoResource {
 		this.srv = srv;
 	}
 	
+	@Operation(summary = "Obtener las novedades", description = "Devuelve las últimas novedades")
 	@GetMapping("/novedades")
 	public NovedadesDTO getNovedades(@RequestParam(required = false) String fecha) {
 		Timestamp timestamp = null;

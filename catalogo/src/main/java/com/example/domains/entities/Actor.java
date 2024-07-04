@@ -9,6 +9,8 @@ import com.example.domains.core.entities.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,14 +25,13 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-
 /**
- * The persistent class for the actor database table.
- * 
+ * Clase persistente para la tabla de actores en la base de datos.
  */
 @Entity
 @Table(name="actor")
 @NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
+@Schema(description = "Entidad que representa un Actor en la base de datos")
 public class Actor extends EntityBase<Actor> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,29 +39,31 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="actor_id", unique=true, nullable=false)
 	@Positive
+	@Schema(description = "Identificador único del Actor", example = "1", required = true, accessMode = AccessMode.READ_ONLY)
 	private int actorId;
 
 	@Column(name="first_name", nullable=false, length=45)
 	@NotBlank
 	@Size(max=45, min=2)
-//	@Pattern(regexp = "^[A-Z]+$", message = "tiene que estar en mayúsculas")
+	@Schema(description = "Nombre del Actor", example = "John", required = true)
 	private String firstName;
 
 	@Column(name="last_name", nullable=false, length=45)
 	@NotBlank
 	@Size(max=45, min=2)
-	//puedo crear un validador que haga el notBlank y el size ese ya que se repite alguna vez
-	//como con el NIF que ya está hecho
+	@Schema(description = "Apellido del Actor", example = "Doe", required = true)
 	private String lastName;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	@JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	@PastOrPresent
+	@Schema(description = "Última actualización del Actor", example = "2023-07-04 12:34:56", required = true, accessMode = AccessMode.READ_ONLY)
 	private Timestamp lastUpdate;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY) //si no pongo el @transactional hay que poner fetch = fetchType.EAGER
+	// Relación bidireccional muchos-a-uno con FilmActor
+	@OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
 	@JsonBackReference
+	@Schema(description = "Lista de asociaciones FilmActor relacionadas con el Actor")
 	private List<FilmActor> filmActors;
 
 	public Actor() {
@@ -160,5 +163,4 @@ public class Actor extends EntityBase<Actor> implements Serializable {
 	public void recibePremio(String premio) {
 		
 	}
-	
 }
