@@ -17,6 +17,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -226,8 +227,8 @@ public class CotillaResource {
 //	Tracer tracer;
 	
 //	@PreAuthorize("hasRole('ADMINISTRADORES')")
-//	@PreAuthorize("authenticated")
-	@SecurityRequirement(name = "bearerAuth")
+	@PreAuthorize("authenticated")
+	@SecurityRequirement(name = "bearerAuth") // para que el swagger se entere
 	@PostMapping(path = "/send/pelis/{id}/like")
 //	@Observed(name = "enviar.megusta", contextualName = "enviar-megusta", lowCardinalityKeyValues = {"megustaType", "pelicula"})
 	public String getPelisLike(@PathVariable int id, @Parameter(hidden = true) @RequestHeader(required = false) String authorization) {
