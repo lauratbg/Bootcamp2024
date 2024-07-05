@@ -82,7 +82,7 @@ public class CotillaResource {
 	@Parameter(in = ParameterIn.QUERY, name = "mode", required = false, description = "http: Directo a URL, lb: Balanceo de carga", 
 	schema = @Schema(type = "string", allowableValues = {"http", "lb" }, defaultValue = "http")) String mode) {
 		ResponseEntity<List<PelisDto>> response = ("http".equals(mode)?restTemplate:restTemplateLB).exchange(
-				("http".equals(mode)?"http://localhost:8010":"lb://CATALOGO-SERVICE") + "/peliculas/v1?mode=short", 
+				("http".equals(mode)?"http://localhost:8010":"lb://CATALOGO-SERVICE") + "/api/peliculas/v1?mode=short", 
 				HttpMethod.GET,
 				HttpEntity.EMPTY, 
 				new ParameterizedTypeReference<List<PelisDto>>() {}
@@ -94,9 +94,9 @@ public class CotillaResource {
 	@Parameter(in = ParameterIn.QUERY, name = "mode", required = false, description = "http: Directo a URL, lb: Balanceo de carga", 
 			schema = @Schema(type = "string", allowableValues = {"http", "lb" }, defaultValue = "http")) String mode) {
 		if("http".equals(mode))
-			return restTemplate.getForObject("http://localhost:8010/peliculas/v1/{key}?mode=short", PelisDto.class, id);
+			return restTemplate.getForObject("http://localhost:8010/api/peliculas/v1/{key}?mode=short", PelisDto.class, id);
 		else
-			return restTemplateLB.getForObject("lb://CATALOGO-SERVICE/peliculas/v1/{key}?mode=short", PelisDto.class, id);
+			return restTemplateLB.getForObject("lb://CATALOGO-SERVICE/api/peliculas/v1/{key}?mode=short", PelisDto.class, id);
 	}
 	@GetMapping(path = "/balancea/rt")
 	@SecurityRequirement(name = "bearerAuth")

@@ -18,16 +18,16 @@ public interface CatalogoProxy {
 	@GetMapping(path = "/actuator/info")
 	String getInfo();
 	
-	@GetMapping(path = "/peliculas/v1?mode=short")
+	@GetMapping(path = "/api/peliculas/v1?mode=short")
 	List<PelisDto> getPelis();
-	@GetMapping(path = "/peliculas/v1?mode=details")
+	@GetMapping(path = "/api/peliculas/v1?mode=details")
 	List<PelisDto> getPelisConDetalle();
 	
-	@GetMapping(path = "/peliculas/v1/{id}?mode=short")
+	@GetMapping(path = "/api/peliculas/v1/{id}?mode=short")
 	PelisDto getPeli(@PathVariable int id);
 	
-	@PostMapping(path = "/peliculas/v1/{id}/like")
+	@PostMapping(path = "/api/peliculas/v1/{id}/like")
 	String meGusta(@PathVariable int id);
-	@PostMapping(path = "/peliculas/v1/{id}/like")
+	@PostMapping(path = "/api/peliculas/v1/{id}/like")
 	String meGusta(@PathVariable int id, @RequestHeader(value = "Authorization", required = true) String authorization);
 }
