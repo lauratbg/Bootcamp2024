@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.client.RestTemplate;
@@ -21,6 +22,7 @@ import io.swagger.v3.oas.annotations.info.License;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients("com.example.application.proxies")
 @OpenAPIDefinition(
 		 info = @Info(title = "Microservicio: Demos", version = "1.0",
 		 description = "**Demos** de Microservicios.",
