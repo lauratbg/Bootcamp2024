@@ -4,4 +4,7 @@
 |  |_|  | | \_\ \/ /_/  >
 |____/__| |___  /\___  / 
               \//_____/  
+Welcome to My Project                                  
+${info.app.name}  -  (${info.app.version})  
 
+                                                                                    
