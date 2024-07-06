@@ -98,6 +98,16 @@ Proyecto similar al anterior pero empleando configuraciones basadas en XML.
 ### Get started
 Para comprobar que funciona, hay que tener funcionando la base de datos en podman. Después, hay que tener ejecutando el servidor que es este proyecto y por último, ejecutar el cliente que está en el proyecto **demo**.
 
+## Servidores
+### ms.eureka.server  
+El servidor Eureka actúa como un registro de servicios donde las aplicaciones cliente pueden registrar sus instancias y descubrir otros servicios registrados. Facilita la escalabilidad y resiliencia en arquitecturas de microservicios.
+### ms.apigateway.server
+El servidor API Gateway actúa como un punto de entrada unificado para los microservicios, gestionando el enrutamiento, autenticación y balanceo de carga. Facilita la comunicación segura y eficiente entre los clientes y los servicios internos.
+### ms.autentication
+El servicio de autenticación gestiona la verificación de identidades de usuarios y aplicaciones, asegurando que solo los usuarios autorizados accedan a los recursos. Proporciona tokens de seguridad y tokens de resfresco que se usan para la validación en otros servicios.
+### ms.config.server
+El servidor de configuración centraliza y gestiona las configuraciones de las aplicaciones distribuidas.
+
 
 
 
