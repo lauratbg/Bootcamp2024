@@ -18,6 +18,17 @@
 
         for(i=0; i < 10; i++)
             console.log("elementos -> " + t[i]); // devuelve 10 20 30
+
+        o = { x: 1, y: 5}
+        o.z = 7;
+        o.m = () => console.log("Hola mundo!");
+        for(i in o) console.log(i);
+        // metodo = 'm';
+        // o.metodo(); //da error o.metodo is not a function
+        o['m']();
+        t[10] = o.m;
+        t[10]();
+        o.m();
     </script>
 </body>
 </html>
