@@ -13,6 +13,9 @@ Se pueden encontrar distintos proyectos con ejemplos de distintas herramientas a
 <br>
 
 ## demo
+> [!WARNING]
+> Este repositorio de GitHub es un proyecto demo de prueba que combina muchas cosas de manera desordenada y caótica. Es un "batiburrillo" experimental sin estructura definida.
+
 Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnologías de Java, incluyendo:
 
 - **Spring Framework**: Para el desarrollo de aplicaciones robustas y escalables.
@@ -55,7 +58,10 @@ En este proyecto estoy aprendiendo y practicando el uso de anotaciones en prueba
 Este proyecto contiene mi implementación y refactorización de la kata de refactorización "Gilded Rose", basada en la descripción y requisitos proporcionados en  [Gilded Rose Refactoring Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/master/GildedRoseRequirements_es.md) de Emily Bache, siendo el objetivo la creación de tests.
 
 ## catalogo
-Aquí se encuentra un sistema diseñado para gestionar un catálogo de películas. A través de este proyecto, se ha implementado una estructura completa de relaciones entre diferentes entidades que forman parte del catálogo. Es un microservicio donde todo parte de la raiz.
+> [!NOTE]
+> Este proyecto de catálogo en el repositorio está bien organizado y estructurado. Aquí es donde aprendí a utilizar microservicios de manera efectiva.
+
+Aquí se encuentra un sistema diseñado para gestionar un catálogo de películas. A través de este proyecto, se ha implementado una estructura completa de relaciones entre diferentes entidades que forman parte del catálogo. 
 
 ### Entidades del Proyecto
 El proyecto incluye las siguientes entidades:
