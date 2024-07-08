@@ -14,7 +14,7 @@ Se pueden encontrar distintos proyectos con ejemplos de distintas herramientas a
 
 ## demo
 > [!WARNING]
-> Este repositorio de GitHub es un proyecto demo de prueba que combina muchas cosas de manera desordenada y caótica. Es un "batiburrillo" experimental sin estructura definida.
+> Este proyecto es un proyecto demo de prueba que combina muchas cosas de manera desordenada y caótica. Es un "batiburrillo" experimental sin estructura definida.
 
 Este proyecto es un espacio donde estoy aprendiendo y practicando varias tecnologías de Java, incluyendo:
 
