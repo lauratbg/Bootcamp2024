@@ -9,99 +9,21 @@
 </head>
 <body>
   <h1>Ejemplos JavaScript</h1>
-  <article>Ejemplo 1</article>
-  <p>Si tengo: </p>
-  <code> a = 2 </code><br>
-  <code> b = '23' </code><br>
-  <code> c = a + +b; </code><br>
-  <p>c entonces es 24, porque +b hace que lo vea como int</p>
-  <p>Pero si <code>c = a + b</code></p>
-  <p>c entonces es 223</p>
-  <article>Ejemplo 2</article>
-  <p><code> t = [10, 20, 30]</code></p>
-  <p>
-    Si se hace un <code> for(i in t) </code> y se saca por consola los valores
-    de 'i' -> se printean los índices (0 1 2)
-  </p>
-  <p>t[7] = "70"</p>
-  <p>Ahora se printearía 0 1 2 7</p>
-  <p><code>t.push("último elemento")</code></p>
-  <p>Ahora se printearía 0 1 2 7 8</p>
-  <p>Para que por consola salieran los elementos hay que usar:</p>
-  <p>
-    <code> for(i=0; i < 10; i++) console.log("elementos -> " + t[i]); </code>
-  </p>
-  <!-- <script>
-    t = [10, 20, 30];
-
-    t[7] = "70";
-
-    t.push("último elemento");
-    for (i in t) console.log("índices -> " + i); // devuelve 0 1 2
-
-    for (i = 0; i < 10; i++) console.log("elementos -> " + t[i]); // devuelve 10 20 30
-  </script> -->
-  <article>Ejemplo 3</article>
-  <p><code>o = { x: 1, y: 5}</code></p>
-  <p>Se le puede añadir otro haciendo <code>o.z = 7;</code></p>
-  <p>También funciona <code>o.m = () => console.log("Hola mundo!");</code></p>
-  <p><code>o['m']();</code> printea "Hola mundo!"</p>
-  <p>Esto también: <code> t[10] = o.m; t[10](); </code></p>
-  <p>Y esto: <code>o.m();</code></p>
-
-  <!-- <script>
-    o = { x: 1, y: 5 };
-    o.z = 7;
-    o.m = () => console.log("Hola mundo!");
-    for (i in o) console.log(i);
-    // metodo = 'm';
-    // o.metodo(); //da error o.metodo is not a function
-    o["m"]();
-    t[10] = o.m;
-    t[10]();
-    o.m();
-  </script> -->
-  <article>Ejemplo 4</article>
-  <h2>Prototype</h2>
-  <p>
-    Cada vez que se instancia un objeto con la función constructora, se
-    definen tantas nuevas funciones como métodos incluya la función
-    constructora.
-  </p>
-  <!-- <script>
-    // Ejemplo 3
-    function MiClase(elId, elNombre) {
-      this.id = elId;
-      this.nombre = elNombre;
-      // this.muestraId = function() {
-      // alert("El ID del objeto es " + this.id);
-      // }
-      // this.ponNombre = function(nom) {
-      // this.nombre=nom.toUpperCase();
-      // }
-    }
-    MiClase.prototype.muestraId = function () {
-      console.log("El id del objeto es: " + this.id);
-    };
-    MiClase.prototype.ponNombre = function (nom) {
-      this.nombre = nom.toUpperCase();
-    };
-
-    var o1 = new MiClase("99", "Objeto de prueba");
-    var o2 = new MiClase("6", "Otro de prueba");
-
-    console.log(o1.muestraId == o2.muestraId);
-    o1.muestraId();
-    o2.muestraId();
-    o1.muestraId = () => console.log("Hola local");
-    // delete o1.muestraId;
-    MiClase.prototype.muestraId = () => console.log("Hola mundo");
-    o1.muestraId();
-    o2.muestraId();
-    console.log(o1.muestraId == o2.muestraId);
-    console.log(++o1.cont, o2.cont++);
-    var elObjeto = new MiClase("99", "Objeto de prueba");
-  </script> -->
+  
+  <div>
+    <input type="text" name="nombre" value="mundo">
+    <button type="button">Saluda</button>
+  </div>
+  <div>
+    <output id="salida"></output>
+  </div>
+  <script>
+    let txt = document.querySelector('input[name=nombre]')
+    document.querySelector('button').addEventListener('click', ev => {
+      salida.textContent = `Hola ${txt.value}!`
+    })
+  </script>
+  
   <script src="./ejemplos1.js" ></script>
   <script>
       console.log(typeof MiClase, typeof Persona)
@@ -122,6 +44,6 @@
 
 
 </body>
-<footer>Laura Gómez Menéndez</footer>
+<!-- <footer>Laura Gómez Menéndez</footer> -->
 
 </html>
