@@ -31,7 +31,7 @@
   <p>
     <code> for(i=0; i < 10; i++) console.log("elementos -> " + t[i]); </code>
   </p>
-  <script>
+  <!-- <script>
     t = [10, 20, 30];
 
     t[7] = "70";
@@ -40,7 +40,7 @@
     for (i in t) console.log("índices -> " + i); // devuelve 0 1 2
 
     for (i = 0; i < 10; i++) console.log("elementos -> " + t[i]); // devuelve 10 20 30
-  </script>
+  </script> -->
   <article>Ejemplo 3</article>
   <p><code>o = { x: 1, y: 5}</code></p>
   <p>Se le puede añadir otro haciendo <code>o.z = 7;</code></p>
@@ -49,7 +49,7 @@
   <p>Esto también: <code> t[10] = o.m; t[10](); </code></p>
   <p>Y esto: <code>o.m();</code></p>
 
-  <script>
+  <!-- <script>
     o = { x: 1, y: 5 };
     o.z = 7;
     o.m = () => console.log("Hola mundo!");
@@ -60,7 +60,7 @@
     t[10] = o.m;
     t[10]();
     o.m();
-  </script>
+  </script> -->
   <article>Ejemplo 4</article>
   <h2>Prototype</h2>
   <p>
@@ -68,7 +68,7 @@
     definen tantas nuevas funciones como métodos incluya la función
     constructora.
   </p>
-  <script>
+  <!-- <script>
     // Ejemplo 3
     function MiClase(elId, elNombre) {
       this.id = elId;
@@ -101,8 +101,24 @@
     console.log(o1.muestraId == o2.muestraId);
     console.log(++o1.cont, o2.cont++);
     var elObjeto = new MiClase("99", "Objeto de prueba");
+  </script> -->
+  <script src="./ejemplos1.js" ></script>
+  <script>
+      console.log(typeof MiClase, typeof Persona)
+      // MiClase = 5;
+      console.log(typeof MiClase, typeof Persona)
+      let kk;
+      if(kk && kk.nombre && kk.nombre.uppercase() === "KK") {
+
+      }
+      if(kk?.nombre?.uppercase() === "KK") {
+
+      }
+      var x = a || b
+      x = nombre && nombre.uppercase()
+      var d = (kk ?? "").uppercase()// kk != null ? kk : ""
   </script>
- 
+  <script src="./ejemplos2.js" ></script>
 
 
 </body>
