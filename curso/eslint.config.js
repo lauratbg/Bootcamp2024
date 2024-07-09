@@ -30,7 +30,9 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      "https://typescript-eslint.io/rules/no-inferrable-types" : ["off"]
+      "@typescript-eslint/no-inferrable-types" : [
+        "off"
+      ]
     },
   },
   {
