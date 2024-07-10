@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SecurityModule } from './security';
 import { LoggerService, MyCoreModule } from '@my/core';
+import { NotificationComponent } from './main/notification/notification.component';
+import { CommonModule } from '@angular/common';
+import { DemosComponent } from './demos/demos.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SecurityModule, MyCoreModule],
+  imports: [CommonModule, RouterOutlet, NotificationComponent,RouterOutlet, SecurityModule, MyCoreModule, DemosComponent,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
