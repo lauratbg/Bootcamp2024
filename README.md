@@ -123,6 +123,10 @@ Este proyecto es una introducción a Angular. Se ha creado para familiarizarse c
 - **ng update**: actualizar las dependencias y herramientas del proyecto Angular a sus últimas versiones compatibles
 - **ng build**: empaquetar y generar lo necesario, compilar la aplicación en una versión lista para producción
 - **ng s -o**: para abrir automáticamente el navegador al ejecutar **ng serve**
+Creación de módulos
+      - **ng g m security**
+      - **ng g m config**
+      - **ng g m ../lib/MyCore**
 
 
 
