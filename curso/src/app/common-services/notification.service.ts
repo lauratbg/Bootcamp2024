@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { LoggerService } from '@my/core';
+import { Subject } from 'rxjs';
 export enum NotificationType {
   error = 'error',
   warn = 'warn',
@@ -28,9 +29,11 @@ export class Notification {
 @Injectable({
   providedIn: 'root',
 })
-export class NotificationService {
+@Injectable({ providedIn: 'root' })
+export class NotificationService implements OnDestroy {
   public readonly NotificationType = NotificationType;
   private listado: Notification[] = [];
+  private notificacion$ = new Subject<Notification>();
 
   constructor(private out: LoggerService) {}
 
@@ -41,7 +44,11 @@ export class NotificationService {
     return this.listado.length > 0;
   }
 
-  // añadir nuevas notificaciones
+  public get Notificacion() {
+    return this.notificacion$;
+  }
+
+  // añadir nuevas notificaciones y emitirlas
   public add(msg: string, type: NotificationType = NotificationType.error) {
     if (!msg || msg === '') {
       this.out.error('Falta el mensaje de notificación.');
@@ -52,6 +59,7 @@ export class NotificationService {
       : 1;
     const n = new Notification(id, msg, type);
     this.listado.push(n);
+    this.notificacion$.next(n);
     // Redundancia: Los errores también se muestran en consola
     if (type === NotificationType.error) {
       this.out.error(`NOTIFICATION: ${msg}`);
@@ -70,5 +78,11 @@ export class NotificationService {
   // borrar todas las notificaciones
   public clear() {
     if (this.HayNotificaciones) this.listado.splice(0);
+  }
+
+  // hasta que no se pone esto, protesta
+  // notifica en el destructor que el observable se ha completado
+  ngOnDestroy(): void {
+    this.notificacion$.complete();
   }
 }
