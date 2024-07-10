@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
-
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+export const ERROR_LEVEL = new InjectionToken<string>('ERROR_LEVEL');
 @Injectable()
 // {providedIn: 'root'}
 export class LoggerService {
-  private nivel: number = 99;
+  private readonly nivel: number; // en java readonly es final
+
+  constructor(@Optional() @Inject(ERROR_LEVEL) nivel?: number) {
+    // if (nivel || nivel === 0) this.nivel = nivel; // aquí se juega con trusti y falsi
+    this.nivel = nivel ?? 99; //jugando con undefined
+  }
 
   public error(message: string): void {
     if (this.nivel > 0) console.error(message);
