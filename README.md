@@ -125,9 +125,11 @@ Este proyecto es una introducción a Angular. Se ha creado para familiarizarse c
 - **ng s -o**: para abrir automáticamente el navegador al ejecutar **ng serve**
 <br>
 Creación de módulos
-      - **ng g m security**
-      - **ng g m config**
-      - **ng g m ../lib/MyCore**
+<br>
+
+- **ng g m security**
+- **ng g m config**
+- **ng g m ../lib/MyCore**
 
 
 
