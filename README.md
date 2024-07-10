@@ -101,7 +101,7 @@ El objetivo principal del proyecto es demostrar cómo configurar y utilizar Spri
 Proyecto similar al anterior pero empleando configuraciones basadas en XML.
 
 ## demo-ws
-### Get started
+### Get-Started
 Para comprobar que funciona, hay que tener funcionando la base de datos en podman. Después, hay que tener ejecutando el servidor que es este proyecto y por último, ejecutar el cliente que está en el proyecto **demo**.
 
 ## Servidores
@@ -113,6 +113,16 @@ El servidor API Gateway actúa como un punto de entrada unificado para los micro
 El servicio de autenticación gestiona la verificación de identidades de usuarios y aplicaciones, asegurando que solo los usuarios autorizados accedan a los recursos. Proporciona tokens de seguridad y tokens de resfresco que se usan para la validación en otros servicios.
 ### ms.config.server
 El servidor de configuración centraliza y gestiona las configuraciones de las aplicaciones distribuidas.
+
+## curso
+Este proyecto es una introducción a Angular. Se ha creado para familiarizarse con los conceptos básicos y las herramientas proporcionadas por el framework Angular. A continuación, se detallan los comandos más importantes utilizados en este proyecto.
+
+### Comandos
+- **ng new <nombre>**: para crear un nuevo proyecto angular
+- **ng serve**: levantar servidor de desarollo
+- **ng update**: actualizar las dependencias y herramientas del proyecto Angular a sus últimas versiones compatibles
+- **ng build**: empaquetar y generar lo necesario, compilar la aplicación en una versión lista para producción
+- **ng s -o**: para abrir automáticamente el navegador al ejecutar **ng serve**
 
 
 
