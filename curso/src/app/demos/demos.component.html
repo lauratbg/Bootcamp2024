@@ -1,4 +1,4 @@
-<h1>Hola {{Nombre}}!</h1>
+<h1>Hola {{Nombre | uppercase}}!</h1>
 <p>
     <input type="text" [(ngModel)]="Nombre">
 
@@ -19,7 +19,7 @@
 
 <p [textContent]="resultado">Esto se pierde</p>
 <p [innerHTML]="resultado">Con HTML</p>
-<p>{{fecha}}</p>
+<p>{{fecha | date:'dd/MMM/yyyy'}}</p>
 
 <p [hidden]="!visible">Ahora me ves</p>
 <p *ngIf="visible">Ahora me ves</p>
@@ -30,23 +30,23 @@
 <p [class.semivisible]="!visible">Ahora me ves</p>
 
 <p>
-    Calcula: 2+2 = {{2+2}} = {{calcula(2,2)}}
+    Calcula: 2+2 = {{2+2 | number:'2.2-3'}} = {{calcula(2,2) | currency:'EUR':'symbol':'4.2-2' }}
 </p>
 
 <ul>
-    <li *ngFor="let item of listado; let ind=index; let fondo=odd;"
+    <li *ngFor="let item of listado | slice:-5; let ind=index; let fondo=odd;"
         [style.background-color]="fondo ? 'Violet' : 'Pink'">
-        {{item.nombre}} ({{item.id}}) [Elemento {{ind + 1}} de {{listado.length}}]
+        {{item.nombre | titlecase}} ({{item.id}}) [Elemento {{ind + 1}} de {{listado.length}}]
 </ul>
 
 <p>
     <select [(ngModel)]="idProvincia">
         <option value="">--Elige opción--</option>
-        <option *ngFor="let item of listado; let ind=index; let fondo=odd;" [value]="item.id"> {{item.nombre}}
+        <option *ngFor="let item of listado; let ind=index; let fondo=odd;" [value]="item.id"> {{item.nombre | titlecase}}
             ({{item.id}}) [Elemento {{ind + 1}} de {{listado.length}}]</option>
     </select>
     Id de la provincia seleccionada: {{idProvincia}}
     <input type="text" value="Tabarnia" #txtProvincia>
     <input type="button" value="add" (click)="add(txtProvincia.value)">
-
 </p>
+<p>{{listado | json}}</p>
