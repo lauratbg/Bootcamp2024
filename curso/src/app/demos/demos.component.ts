@@ -3,12 +3,12 @@ import { NotificationService, NotificationType } from '../common-services';
 import { Unsubscribable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MyCoreModule } from '@my/core';
+import { CapitalizePipe, ElipsisPipe, MyCoreModule } from '@my/core';
 
 @Component({
   selector: 'app-demos',
   standalone: true,
-  imports: [CommonModule, FormsModule, MyCoreModule],
+  imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.css',
 })

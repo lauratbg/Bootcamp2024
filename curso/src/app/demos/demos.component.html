@@ -42,7 +42,7 @@
 <p>
     <select [(ngModel)]="idProvincia">
         <option value="">--Elige opción--</option>
-        <option *ngFor="let item of listado; let ind=index; let fondo=odd;" [value]="item.id"> {{item.nombre | titlecase}}
+        <option *ngFor="let item of listado; let ind=index; let fondo=odd;" [value]="item.id"> {{item.nombre | capitalize}}
             ({{item.id}}) [Elemento {{ind + 1}} de {{listado.length}}]</option>
     </select>
     Id de la provincia seleccionada: {{idProvincia}}
