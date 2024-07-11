@@ -6,11 +6,12 @@ import {  MyCoreModule } from '@my/core';
 import { CommonModule } from '@angular/common';
 import { DemosComponent } from './demos/demos.component';
 import { NotificationModalComponent } from './main';
+import { HomeComponent } from "./main/home/home.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent,RouterOutlet, SecurityModule, MyCoreModule, DemosComponent,],
+  imports: [CommonModule, RouterOutlet, NotificationModalComponent, RouterOutlet, SecurityModule, MyCoreModule, DemosComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
