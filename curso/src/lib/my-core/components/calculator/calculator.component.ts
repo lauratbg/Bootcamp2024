@@ -10,6 +10,9 @@ export class CalculatorComponent {
   operator: string = ''; // Variable para almacenar el último operador utilizado
   ultimo: string = '';
 
+  // está en español
+  es = true;
+
   digitos(digito: string) {
     this.display += digito;
   }
@@ -47,7 +50,11 @@ export class CalculatorComponent {
     this.display = '';
   }
   decimal() {
-    this.display += '.';
+    if(this.es)
+      this.display += ',';
+    else
+      this.display += '.';
+
   }
   cuadrado() {
     this.display = (
@@ -68,18 +75,47 @@ export class CalculatorComponent {
   }
 
   igual() {
-    const hasOperator = this.display
+    // Reemplaza comas con puntos para las operaciones
+    let displayForEval = this.display;
+
+    if(this.es)
+       displayForEval = this.display.replace(/,/g, '.');
+    
+    const hasOperator = displayForEval
       .split('')
       .some(
         (char) => char === '*' || char === '+' || char === '/' || char === '-'
       );
-
+  
+    let resultado: number;
     if (hasOperator) {
-      this.display = eval(this.display).toString();
+      resultado = eval(displayForEval);
     } else {
-      this.display = eval(
-        this.display + this.operator + this.ultimo
-      ).toString();
+      resultado = eval(displayForEval + this.operator + this.ultimo);
+    }
+  
+    // Formatea el resultado según el idioma
+    this.display = this.formatResultado(resultado);
+  }
+  
+  // Método para formatear el resultado según el idioma
+  private formatResultado(resultado: number): string {
+    if (this.es) {
+      return resultado.toFixed(2).toString().replace('.', ',');
+    } else {
+      return resultado.toFixed(2).toString();
     }
   }
+  
+  
+
+  esp() {
+    this.es = true;
+    
+  }
+
+  en(){
+    this.es = false;
+  }
+
 }
