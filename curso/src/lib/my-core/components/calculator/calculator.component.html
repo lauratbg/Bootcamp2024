@@ -38,10 +38,5 @@
     <button (click)="igual()">=</button>
 </div>
 
-<div class="combo">
-    <label for="language-select">Seleccione idioma:</label>
-    <select id="language-select" [(ngModel)]="es" (change)="cambiaIdioma()">
-      <option [value]="true">Español</option>
-      <option [value]="false">Inglés</option>
-    </select>
-</div>
+<input type="button" value="Español" (click)="esp()">
+<input type="button" value="Ingles" (click)="en()">

@@ -105,7 +105,12 @@ export class CalculatorComponent {
     }
   }
 
-  cambiaIdioma() {
-    this.es = !this.es;
+  esp() {
+    this.es = true;
+
+  }
+
+  en(){
+    this.es = false;
   }
 }
