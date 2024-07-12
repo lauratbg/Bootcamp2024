@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
-/* eslint-disable @angular-eslint/template/label-has-associated-control */
+/* eslint- @angular-eslint/template/label-has-associated-control */
 /* eslint-disable @angular-eslint/component-selector */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
