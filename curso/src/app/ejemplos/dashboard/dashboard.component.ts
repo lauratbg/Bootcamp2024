@@ -4,7 +4,7 @@ import { HomeComponent } from 'src/app/main';
 import GraficoSvgComponent from 'src/lib/my-core/components/grafico-svg/grafico-svg.component';
 import { NotificationComponent } from "../../main/notification/notification.component";
 import { CommonModule } from '@angular/common';
-import { CalculatorComponent } from 'src/app/common-components';
+import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calculator.component'
 
 @Component({
   selector: 'app-dashboard',

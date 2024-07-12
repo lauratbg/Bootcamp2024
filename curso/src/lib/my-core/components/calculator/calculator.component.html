@@ -1,0 +1,34 @@
+<label for="pantalla">Calculadora Milán</label>
+<input type="text" name="pantalla" id="pantalla" [(ngModel)]="display" disabled>
+
+<div id="botones">
+    <button (click)="porcentaje()">%</button>
+    <button (click)="ce()">CE</button>
+    <button (click)="c()">C</button>
+    <button (click)="borrar()">on/C</button>
+
+    <button (click)="entreX()">1/x</button>
+    <button (click)="cuadrado()">x^2</button>
+    <button (click)="raiz()">√</button>
+    <button (click)="division()">/</button>
+
+    <button (click)="digitos('7')">7</button>
+    <button (click)="digitos('8')">8</button>
+    <button (click)="digitos('9')">9</button>
+    <button (click)="multiplicacion()">x</button>
+
+    <button (click)="digitos('4')">4</button>
+    <button (click)="digitos('5')">5</button>
+    <button (click)="digitos('6')">6</button>
+    <button (click)="resta()">-</button>
+
+    <button (click)="digitos('1')">1</button>
+    <button (click)="digitos('2')">2</button>
+    <button (click)="digitos('3')">3</button>
+    <button (click)="suma()">+</button>
+
+    <button (click)="cambioSigno()">+/-</button>
+    <button (click)="digitos('0')">0</button>
+    <button (click)="decimal()">.</button>
+    <button (click)="igual()">=</button>
+</div>
