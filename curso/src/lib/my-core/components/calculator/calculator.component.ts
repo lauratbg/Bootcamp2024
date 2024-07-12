@@ -109,13 +109,8 @@ export class CalculatorComponent {
   
   
 
-  esp() {
-    this.es = true;
-    
-  }
 
-  en(){
-    this.es = false;
+  cambiaIdioma(){
+    this.es = !this.es;
   }
-
 }
