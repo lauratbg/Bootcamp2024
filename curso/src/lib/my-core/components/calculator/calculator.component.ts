@@ -14,6 +14,8 @@ export class CalculatorComponent {
   es = true;
 
   digitos(digito: string) {
+    if(this.display=='0')
+      this.display=''
     this.display += digito;
   }
 
@@ -32,7 +34,7 @@ export class CalculatorComponent {
     this.display = this.display.slice(0, -1);
   }
   ce() {
-    this.display = '';
+    this.display = '0';
   }
   cambioSigno() {
     this.display = (parseFloat(this.display) * -1).toString();
@@ -47,7 +49,7 @@ export class CalculatorComponent {
     this.display = (1 / parseFloat(this.display)).toString();
   }
   c() {
-    this.display = '';
+    this.display = '0';
   }
   decimal() {
     if (this.es) this.display += ',';
