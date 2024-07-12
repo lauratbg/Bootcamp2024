@@ -42,11 +42,11 @@
         [style.background-color]="fondo ? 'Violet' : 'Pink'">
         {{item.nombre | titlecase}} ({{item.id}}) [Elemento {{ind + 1}} de {{listado.length}}]
     </li>
-    @for(item of listado; track item.id) {
+    <!-- @for(item of listado; track item.id) {
         <li [style.background-color]="$odd ? 'LightBlue' : 'Lavender'">
           {{item.nombre | titlecase}} ({{item.id}}) [Elemento {{$index + 1}} de {{listado.length}}]
         </li>
-      }
+      } -->
 </ul>
 
 <p>

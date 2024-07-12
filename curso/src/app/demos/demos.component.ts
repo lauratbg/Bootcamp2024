@@ -8,7 +8,7 @@ import { CapitalizePipe, ElipsisPipe, MyCoreModule } from '@my/core';
 @Component({
   selector: 'app-demos',
   standalone: true,
-  imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe],
+  imports: [CommonModule, FormsModule, ElipsisPipe, CapitalizePipe, MyCoreModule,],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.css',
 })
