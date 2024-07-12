@@ -29,7 +29,7 @@ export class CalculatorComponent {
     this.display += '-';
   }
   borrar() {
-    this.display = '';
+    this.display = this.display.slice(0, -1);
   }
   ce() {
     this.display = '';
@@ -50,11 +50,8 @@ export class CalculatorComponent {
     this.display = '';
   }
   decimal() {
-    if(this.es)
-      this.display += ',';
-    else
-      this.display += '.';
-
+    if (this.es) this.display += ',';
+    else this.display += '.';
   }
   cuadrado() {
     this.display = (
@@ -78,26 +75,25 @@ export class CalculatorComponent {
     // Reemplaza comas con puntos para las operaciones
     let displayForEval = this.display;
 
-    if(this.es)
-       displayForEval = this.display.replace(/,/g, '.');
-    
+    if (this.es) displayForEval = this.display.replace(/,/g, '.');
+
     const hasOperator = displayForEval
       .split('')
       .some(
         (char) => char === '*' || char === '+' || char === '/' || char === '-'
       );
-  
+
     let resultado: number;
     if (hasOperator) {
       resultado = eval(displayForEval);
     } else {
       resultado = eval(displayForEval + this.operator + this.ultimo);
     }
-  
+
     // Formatea el resultado según el idioma
     this.display = this.formatResultado(resultado);
   }
-  
+
   // Método para formatear el resultado según el idioma
   private formatResultado(resultado: number): string {
     if (this.es) {
@@ -106,11 +102,8 @@ export class CalculatorComponent {
       return resultado.toFixed(2).toString();
     }
   }
-  
-  
 
-
-  cambiaIdioma(){
+  cambiaIdioma() {
     this.es = !this.es;
   }
 }
