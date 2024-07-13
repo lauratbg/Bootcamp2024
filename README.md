@@ -115,7 +115,7 @@ El servicio de autenticación gestiona la verificación de identidades de usuari
 El servidor de configuración centraliza y gestiona las configuraciones de las aplicaciones distribuidas.
 
 ## curso
-Este proyecto es una introducción a Angular. Se ha creado para familiarizarse con los conceptos básicos y las herramientas proporcionadas por el framework Angular. A continuación, se detallan los comandos más importantes utilizados en este proyecto.
+Este proyecto es una introducción a Angular. Se ha creado para familiarizarse con los conceptos básicos y las herramientas proporcionadas por el framework Angular. A continuación, se detallan los comandos más importantes utilizados en este proyecto. Contiene un ejercicio de la implementación de una calculadora.
 
 ### Comandos
 - **ng new <nombre>**: para crear un nuevo proyecto angular
