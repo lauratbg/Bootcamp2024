@@ -118,11 +118,15 @@ El servidor de configuración centraliza y gestiona las configuraciones de las a
 Este proyecto es una introducción a Angular. Se ha creado para familiarizarse con los conceptos básicos y las herramientas proporcionadas por el framework Angular. A continuación, se detallan los comandos más importantes utilizados en este proyecto. Contiene un ejercicio de la implementación de una calculadora.
 
 ### Comandos
+> [!NOTE]
+> Usar ng s -o para ver la aplicación en el navegador.
+
+- **ng s -o**: para abrir automáticamente el navegador al ejecutar **ng serve**. 
 - **ng new <nombre>**: para crear un nuevo proyecto angular
 - **ng serve**: levantar servidor de desarollo
 - **ng update**: actualizar las dependencias y herramientas del proyecto Angular a sus últimas versiones compatibles
 - **ng build**: empaquetar y generar lo necesario, compilar la aplicación en una versión lista para producción
-- **ng s -o**: para abrir automáticamente el navegador al ejecutar **ng serve**
+- 
 <br>
 Creación de módulos
 <br>
