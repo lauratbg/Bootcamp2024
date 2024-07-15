@@ -5,6 +5,7 @@ import GraficoSvgComponent from 'src/lib/my-core/components/grafico-svg/grafico-
 import { NotificationComponent } from "../../main/notification/notification.component";
 import { CommonModule } from '@angular/common';
 import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calculator.component'
+import { FormularioComponent } from '../formulario/formulario.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,11 @@ import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calcu
 })
 export class DashboardComponent {
     menu = [
-      {texto: 'calculator', icono: '', componente: CalculatorComponent },
-      {texto: 'inicio', icono: '', componente: HomeComponent },
-      {texto: 'demos', icono: '', componente: DemosComponent },
-      {texto: 'grafico', icono: '', componente: GraficoSvgComponent},
+      {texto: 'Formulario', icono: '', componente: FormularioComponent },
+      {texto: 'Calculadora', icono: '', componente: CalculatorComponent },
+      {texto: 'Inicio', icono: '', componente: HomeComponent },
+      {texto: 'Demos', icono: '', componente: DemosComponent },
+      {texto: 'Gráfico', icono: '', componente: GraficoSvgComponent},
     ]
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     actual: any = this.menu[0].componente // obligatorio meterle el any

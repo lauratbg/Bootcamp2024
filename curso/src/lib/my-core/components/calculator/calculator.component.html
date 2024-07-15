@@ -30,13 +30,13 @@
     <button (click)="cambioSigno()">+/-</button>
     <button (click)="digitos('0')">0</button>
     @if(es){
-    <button (click)="decimal()">,</button>
+        <button (click)="decimal()">,</button>
     }
     @if(!es){
-    <button (click)="decimal()">.</button>
+        <button (click)="decimal()">.</button>
     }
     <button (click)="igual()">=</button>
 </div>
 
 <input type="button" value="Español" (click)="esp()">
-<input type="button" value="Ingles" (click)="en()">
+<input type="button" value="Inglés" (click)="en()">
