@@ -6,6 +6,7 @@ import { NotificationComponent } from "../../main/notification/notification.comp
 import { CommonModule } from '@angular/common';
 import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calculator.component'
 import { FormularioComponent } from '../formulario/formulario.component';
+import { ContactosComponent } from 'src/app/contactos';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ import { FormularioComponent } from '../formulario/formulario.component';
 })
 export class DashboardComponent {
     menu = [
+      {texto: 'Contactos', icono: '', componente: ContactosComponent },
       {texto: 'Formulario', icono: '', componente: FormularioComponent },
       {texto: 'Calculadora', icono: '', componente: CalculatorComponent },
       {texto: 'Inicio', icono: '', componente: HomeComponent },
