@@ -18,11 +18,11 @@ import { BibliotecaComponent } from 'src/app/biblioteca';
 })
 export class DashboardComponent {
     menu = [
+      {texto: 'Inicio', icono: '', componente: HomeComponent },
       {texto: 'Biblioteca', icono: '', componente: BibliotecaComponent },
       {texto: 'Contactos', icono: '', componente: ContactosComponent },
       {texto: 'Formulario', icono: '', componente: FormularioComponent },
       {texto: 'Calculadora', icono: '', componente: CalculatorComponent },
-      {texto: 'Inicio', icono: '', componente: HomeComponent },
       {texto: 'Demos', icono: '', componente: DemosComponent },
       {texto: 'Gráfico', icono: '', componente: GraficoSvgComponent},
     ]
