@@ -22,7 +22,7 @@ export class FormularioComponent {
   };
 
   add() {
-    this.elemento = {}; // si no le ponemos any, da error
+    this.elemento = {}; // si no le ponemos any, da error, le estoy metiendo un objeto vacío
     this.modo = 'add';
   }
 
