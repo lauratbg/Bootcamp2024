@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calculator.component'
 import { FormularioComponent } from '../formulario/formulario.component';
 import { ContactosComponent } from 'src/app/contactos';
+import { BibliotecaComponent } from 'src/app/biblioteca';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ import { ContactosComponent } from 'src/app/contactos';
 })
 export class DashboardComponent {
     menu = [
+      {texto: 'Biblioteca', icono: '', componente: BibliotecaComponent },
       {texto: 'Contactos', icono: '', componente: ContactosComponent },
       {texto: 'Formulario', icono: '', componente: FormularioComponent },
       {texto: 'Calculadora', icono: '', componente: CalculatorComponent },

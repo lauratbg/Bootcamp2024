@@ -1,0 +1,6 @@
+@switch (VM.Modo) {
+    @case ('add') { <app-biblioteca-add /> }
+    @case ('edit') { <app-biblioteca-edit /> }
+    @case ('view') { <app-biblioteca-view /> }
+    @default { <app-biblioteca-list /> }
+    }
