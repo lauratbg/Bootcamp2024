@@ -1,12 +1,16 @@
-import { HttpContextToken, HttpErrorResponse } from '@angular/common/http';
+import { HttpContext, HttpContextToken, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { NotificationService } from '../common-services';
+import { NavigationService, NotificationService } from '../common-services';
 import { LoggerService } from '@my/core';
+import { Router } from '@angular/router';
+
+import { AuthService, AUTH_REQUIRED } from '../security';
+
 
 // base de datos de los servicios dao
 
@@ -36,30 +40,31 @@ export abstract class RESTDAOService<T, K> {
 @Injectable({
   providedIn: 'root',
 })
-export class ContactosDAOService extends RESTDAOService<any, any> {
+export class ContactosDAOService extends RESTDAOService<any, number> {
   constructor() {
-    super('contactos');
+    super('contactos', { context: new HttpContext().set(AUTH_REQUIRED, true) });
   }
 }
 
 export type ModoCRUD = 'list' | 'add' | 'edit' | 'view' | 'delete';
-export const AUTH_REQUIRED = new HttpContextToken<boolean>(() => false);
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactosViewModelService {
+  protected listURL = '/contactos';
+
   protected modo: ModoCRUD = 'list';
   protected listado: Array<any> = [];
   protected elemento: any = {};
   protected idOriginal: any = null;
 
   // constructor e intección de dependencias
-  constructor(
-    protected notify: NotificationService,
+  constructor(protected notify: NotificationService,
     protected out: LoggerService,
     protected dao: ContactosDAOService
-  ) {}
+    , public auth: AuthService, protected router: Router, private navigation: NavigationService
+  ) { }
 
   // propiedades
   public get Modo(): ModoCRUD {
@@ -122,8 +127,10 @@ export class ContactosViewModelService {
   public cancel(): void {
     this.elemento = {};
     this.idOriginal = null;
-    this.list();
+    // this.list();
+    this.router.navigateByUrl(this.listURL);
   }
+
   public send(): void {
     switch (this.modo) {
       case 'add':
@@ -156,13 +163,10 @@ export class ContactosViewModelService {
       case 0:
         msg = err.message;
         break;
-      case 404:
-        msg = `ERROR ${err.status}: ${err.statusText}`;
-        break;
+      case 404: this.router.navigateByUrl('/404.html'); return;
       default:
-        msg = `ERROR ${err.status}: ${err.error?.['title'] ?? err.statusText}.${
-          err.error?.['detail'] ? ` Detalles: ${err.error['detail']}` : ''
-        }`;
+        msg = `ERROR ${err.status}: ${err.error?.['title'] ?? err.statusText}.${err.error?.['detail'] ? ` Detalles: ${err.error['detail']}` : ''
+          }`;
         break;
     }
     this.notify.add(msg);
