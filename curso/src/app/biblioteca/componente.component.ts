@@ -1,23 +1,25 @@
-import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { BibliotecaViewModelService } from './servicios.service';
 import { ErrorMessagePipe, TypeValidator } from '@my/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-bibliotecas',
+  selector: 'app-biblioteca',
   templateUrl: './tmpl-anfitrion.component.html',
   styleUrls: ['./componente.component.css'],
   standalone: true,
   imports: [
     forwardRef(() => BibliotecaAddComponent),
-    forwardRef(() => BibliotecaEditComponent),
+    forwardRef(() =>BibliotecaEditComponent),
     forwardRef(() => BibliotecaViewComponent),
     forwardRef(() => BibliotecaListComponent),
   ],
 })
 export class BibliotecaComponent implements OnInit, OnDestroy {
-  constructor(protected vm: BibliotecaViewModelService) {}
+  constructor(protected vm: BibliotecaViewModelService) { }
   public get VM(): BibliotecaViewModelService {
     return this.vm;
   }
@@ -34,16 +36,13 @@ export class BibliotecaComponent implements OnInit, OnDestroy {
   templateUrl: './tmpl-list.component.html',
   styleUrls: ['./componente.component.css'],
   standalone: true,
+  imports: [RouterLink]
 })
 export class BibliotecaListComponent implements OnInit, OnDestroy {
-  constructor(protected vm: BibliotecaViewModelService) {}
-  public get VM(): BibliotecaViewModelService {
-    return this.vm;
-  }
-  ngOnInit(): void {}
-  ngOnDestroy(): void {
-    this.vm.clear();
-  }
+  constructor(protected vm: BibliotecaViewModelService) { }
+  public get VM(): BibliotecaViewModelService { return this.vm; }
+  ngOnInit(): void { this.vm.list(); }
+  ngOnDestroy(): void { this.vm.clear(); }
 }
 
 @Component({
@@ -51,44 +50,60 @@ export class BibliotecaListComponent implements OnInit, OnDestroy {
   templateUrl: './tmpl-form.component.html',
   styleUrls: ['./componente.component.css'],
   standalone: true,
-  imports: [FormsModule, TypeValidator, ErrorMessagePipe],
+  imports: [FormsModule, TypeValidator, ErrorMessagePipe]
 })
 export class BibliotecaAddComponent implements OnInit {
-  constructor(protected vm: BibliotecaViewModelService) {}
-  public get VM(): BibliotecaViewModelService {
-    return this.vm;
+  constructor(protected vm: BibliotecaViewModelService) { }
+  public get VM(): BibliotecaViewModelService { return this.vm; }
+  ngOnInit(): void {
+    this.vm.add();
   }
-  ngOnInit(): void {}
 }
 @Component({
   selector: 'app-biblioteca-edit',
   templateUrl: './tmpl-form.component.html',
   styleUrls: ['./componente.component.css'],
   standalone: true,
-  imports: [FormsModule, TypeValidator, ErrorMessagePipe],
+  imports: [FormsModule, TypeValidator, ErrorMessagePipe]
 })
 export class BibliotecaEditComponent implements OnInit, OnDestroy {
-  constructor(protected vm: BibliotecaViewModelService) {}
-  public get VM(): BibliotecaViewModelService {
-    return this.vm;
+  private obs$?: Subscription;
+  constructor(protected vm: BibliotecaViewModelService,
+    protected route: ActivatedRoute, protected router: Router) { }
+  public get VM(): BibliotecaViewModelService { return this.vm; }
+  ngOnInit(): void {
+    this.obs$ = this.route.paramMap.subscribe(
+      (params: ParamMap) => {
+        const id = parseInt(params?.get('id') ?? '');
+        if (id) {
+          this.vm.edit(id);
+        } else {
+          this.router.navigate(['/404.html']);
+        }
+      });
   }
-  ngOnInit(): void {}
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.obs$!.unsubscribe();
+  }
 }
 @Component({
   selector: 'app-biblioteca-view',
   templateUrl: './tmpl-view.component.html',
   styleUrls: ['./componente.component.css'],
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe]
 })
-export class BibliotecaViewComponent implements OnInit, OnDestroy {
-  constructor(protected vm:BibliotecaViewModelService) {}
-  public get VM(): BibliotecaViewModelService {
-    return this.vm;
+export class BibliotecaViewComponent implements OnChanges {
+  @Input() id?: string;
+  constructor(protected vm: BibliotecaViewModelService, protected router: Router) { }
+  public get VM(): BibliotecaViewModelService { return this.vm; }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.id) {
+      this.vm.view(+this.id);
+    } else {
+      this.router.navigate(['/404.html']);
+    }
   }
-  ngOnInit(): void {}
-  ngOnDestroy(): void {}
 }
 
 export const BIBLIOTECA_COMPONENTES = [

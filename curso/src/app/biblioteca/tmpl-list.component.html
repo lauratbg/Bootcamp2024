@@ -2,8 +2,12 @@
     <thead>
         <tr class="table-info">
             <th class="display-4">Biblioteca</th>
-            <th class="text-end"><button class="btn btn-success" (click)="VM.add()"><i class="fas fa-plus"></i> Añadir</button></th>
-        </tr>
+            <th class="text-end">
+                @if (VM.auth.isAuthenticated) {
+                <button class="btn btn-success" routerLink="add"><i class="fas fa-plus"></i> Añadir</button>
+                }
+            </th>
+                </tr>
     </thead>
     <tbody>
         @for(item of VM.Listado; track item.id) {
@@ -24,7 +28,7 @@
             <td class="align-middle text-end">
                 <div class="btn-group" role="group">
                     <button class="btn btn-info" (click)="VM.view(item.id)"><i class="fas fa-eye"></i></button>
-                    <button class="btn btn-success" (click)="VM.edit(item.id)"><i class="fas fa-pen"></i></button>
+                    <button class="btn btn-success" [routerLink]="[item.id, 'edit']"><i class="fas fa-pen"></i></button>
                     <button class="btn btn-danger" (click)="VM.delete(item.id)"><i class="far fa-trash-alt"></i></button>
                 </div>
             </td>

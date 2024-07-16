@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { HomeComponent } from './main';
-import { BibliotecaListComponent, DemosComponent } from './ejemplos';
+import { BibliotecaAddComponent, BibliotecaEditComponent, BibliotecaListComponent, BibliotecaViewComponent, DemosComponent } from './ejemplos';
 import { ContactosAddComponent, ContactosEditComponent, ContactosListComponent, ContactosViewComponent } from './contactos';
 import { AuthCanActivateFn } from './security';
 import { CalculatorComponent } from '@my/core';
@@ -17,9 +17,16 @@ export const routes: Routes = [
   { path: 'contactos', component: ContactosListComponent },
   { path: 'biblioteca', component: BibliotecaListComponent },
   { path: 'contactos/add', component: ContactosAddComponent, canActivate: [ AuthCanActivateFn ] },
+  { path: 'biblioteca/add', component: BibliotecaAddComponent, canActivate: [ AuthCanActivateFn ] },
   { path: 'contactos/:id/edit', component: ContactosEditComponent },
+  { path: 'biblioteca/:id/edit', component: BibliotecaEditComponent },
+
   { path: 'contactos/:id', component: ContactosViewComponent },
+  { path: 'biblioteca/:id', component: BibliotecaViewComponent },
+
   { path: 'contactos/:id/:kk', component: ContactosViewComponent },
+  { path: 'biblioteca/:id/:kk', component: BibliotecaViewComponent },
+
   { path: 'alysia/baxendale', redirectTo: '/contactos/43' },
   { matcher: graficoFiles, loadComponent: () => import('src/lib/my-core/components/grafico-svg/grafico-svg.component')},
   { path: 'config', loadChildren: () => import('./config/config.module') },
