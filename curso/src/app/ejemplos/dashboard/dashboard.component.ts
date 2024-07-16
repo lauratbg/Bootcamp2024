@@ -8,11 +8,12 @@ import { CalculatorComponent } from 'src/lib/my-core/components/calculator/calcu
 import { FormularioComponent } from '../formulario/formulario.component';
 import { ContactosComponent } from 'src/app/contactos';
 import { BibliotecaComponent } from 'src/app/biblioteca';
+import { LoginComponent, RegisterUserComponent } from 'src/app/security';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NotificationComponent, CommonModule, AjaxWaitComponent, ],
+  imports: [NotificationComponent, CommonModule, AjaxWaitComponent, LoginComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
