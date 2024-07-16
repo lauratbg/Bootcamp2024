@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { HomeComponent } from './main';
-import { DemosComponent } from './ejemplos';
+import { BibliotecaListComponent, DemosComponent } from './ejemplos';
 import { ContactosAddComponent, ContactosEditComponent, ContactosListComponent, ContactosViewComponent } from './contactos';
 import { AuthCanActivateFn } from './security';
 import { CalculatorComponent } from '@my/core';
@@ -15,6 +15,7 @@ export const routes: Routes = [
   { path: 'demos', component: DemosComponent },
   { path: 'chisme/de/hacer/numeros', component: CalculatorComponent, title: 'Calculadora' },
   { path: 'contactos', component: ContactosListComponent },
+  { path: 'biblioteca', component: BibliotecaListComponent },
   { path: 'contactos/add', component: ContactosAddComponent, canActivate: [ AuthCanActivateFn ] },
   { path: 'contactos/:id/edit', component: ContactosEditComponent },
   { path: 'contactos/:id', component: ContactosViewComponent },
