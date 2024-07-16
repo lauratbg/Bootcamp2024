@@ -1,5 +1,5 @@
 import { Router, NavigationEnd, ActivationStart, GuardsCheckEnd } from '@angular/router';
-import { LoggerService } from '../../lib/my-core';
+import { LoggerService } from '@my/core';
 
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -15,7 +15,7 @@ export class NavigationService {
         if (e.snapshot?.data?.['pageTitle']) {
           this.title.setTitle(e.snapshot.data['pageTitle']);
         } else {
-          this.title.setTitle('Curso de Angular');
+          this.title.setTitle('Catálogo');
         }
       }
       if (e instanceof NavigationEnd && !e.url.includes('/login')) {

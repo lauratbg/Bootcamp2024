@@ -1,7 +1,7 @@
-export { MyCoreModule } from './my-core.module';
-export * from './services/logger.service';
-export * from './pipes/cadenas.pipe';
+export { MyCoreModule } from './my-core.module'
+export * from './services/logger.service'
+export * from './pipes/cadenas.pipe'
+export * from './pipes/numericos.pipe'
 export * from './components/sizer.component'
 export * from './components/grafico-svg/grafico-svg.component'
-export * from './components/calculator/calculator.component'
 export * from './directives/mis-validadores.directive'

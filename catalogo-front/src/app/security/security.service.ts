@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Router, Route, CanActivateFn, CanActivateChildFn, CanMatchFn } from '@angular/router';
 import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpContextToken } from '@angular/common/http';
 import { BehaviorSubject, catchError, filter, Observable, of, switchMap, take, throwError } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { EventBusService } from '../common-services';
 
 export const AUTH_REQUIRED = new HttpContextToken<boolean>(() => false);

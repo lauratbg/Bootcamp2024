@@ -1,7 +1,6 @@
 export const environment = {
   production: false,
-  ERROR_LEVEL: 3,
-  apiURL: 'http://localhost:4321/api/',
-  securityApiURL: 'http://localhost:4321/api/',
-  wsEndpoint: 'ws://localhost:4321/ws/',
+  ERROR_LEVEL: 4,
+  apiURL: 'http://localhost:8010/api/',
+  securityApiURL: 'http://localhost:8091/',
 };

@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./main/header/header.component";
-import { AjaxWaitComponent } from "./main/ajax-wait";
-import { NotificationComponent } from "./main/notification/notification.component";
-import { NotificationModalComponent } from "./main/notification-modal/notification-modal.component";
+import { AjaxWaitComponent, HeaderComponent, NotificationComponent, NotificationModalComponent } from './main';
+import { NavigationService } from './common-services';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, AjaxWaitComponent, NotificationComponent, NotificationModalComponent],
+  imports: [RouterOutlet, NotificationComponent, NotificationModalComponent, AjaxWaitComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'catalogo-front';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  constructor(nav: NavigationService) { }
 }

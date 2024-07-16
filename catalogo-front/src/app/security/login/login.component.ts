@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LOGIN_FORM_CLOSE_EVENT, LOGIN_FORM_OPEN_EVENT, LoginService } from '../security.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventBusService, NotificationService } from '../../common-services';
+import { EventBusService, NotificationService } from 'src/app/common-services';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Subscription } from 'rxjs';

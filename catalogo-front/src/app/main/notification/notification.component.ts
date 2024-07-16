@@ -1,4 +1,4 @@
-import { I18nSelectPipe, NgFor, NgIf } from '@angular/common';
+import { NgIf, NgFor, I18nSelectPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NotificationService } from '../../common-services';
 
@@ -9,11 +9,7 @@ import { NotificationService } from '../../common-services';
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })
-
-  
 export class NotificationComponent {
-  // actuará como ViewModel de la vista
   constructor(private vm: NotificationService) { }
-
   public get VM() { return this.vm; }
 }
