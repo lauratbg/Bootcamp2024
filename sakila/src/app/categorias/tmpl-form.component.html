@@ -16,7 +16,7 @@
   }
   <div class="form-floating col-md-4">
     <input class="form-control" [class.is-invalid]="categoria.invalid" type="text" name="categoria" id="nombre"
-       [(ngModel)]="VM.Elemento.categoria" #categoria="ngModel" required minlength="2"
+       [(ngModel)]="VM.Elemento['categoría']" #categoria="ngModel" required minlength="2"
        maxlength="50" placeholder=" ">
     <label for="categoria">Categoría:</label>
     <output class="invalid-feedback" [hidden]="categoria.valid">{{categoria.errors | errormsg}}</output>
