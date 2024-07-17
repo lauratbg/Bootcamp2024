@@ -4,7 +4,7 @@
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DatePipe, NgIf, } from '@angular/common';
+import { CommonModule, DatePipe, NgIf, } from '@angular/common';
 import { PaginatorModule } from 'primeng/paginator';
 import { ErrorMessagePipe, TypeValidator } from '@my/core';
 import { ActoresViewModelService } from './servicios.service';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './tmpl-list.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [RouterLink, PaginatorModule]
+    imports: [RouterLink, PaginatorModule, CommonModule]
 })
 export class ActoresListComponent implements OnChanges, OnDestroy {
   @Input() page = 0
@@ -77,9 +77,13 @@ export class ActoresEditComponent implements OnInit, OnDestroy {
 })
 export class ActoresViewComponent implements OnChanges {
   @Input() id?: string;
-  constructor(protected vm: ActoresViewModelService, protected router: Router) { }
+
+  constructor(protected vm: ActoresViewModelService, protected router: Router) { 
+
+  }
   public get VM(): ActoresViewModelService { return this.vm; }
   ngOnChanges(_changes: SimpleChanges): void {
+
     if (this.id) {
       this.vm.view(+this.id);
     } else {
