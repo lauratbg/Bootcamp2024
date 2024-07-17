@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './tmpl-list.component.html',
     styleUrls: ['./componente.component.css'],
     standalone: true,
-    imports: [RouterLink, PaginatorModule, CommonModule]
+    imports: [RouterLink, PaginatorModule]
 })
 export class ActoresListComponent implements OnChanges, OnDestroy {
   @Input() page = 0
