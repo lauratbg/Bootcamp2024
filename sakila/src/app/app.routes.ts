@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './main/page-not-found/page-not-found.comp
 export const routes: Routes = [
     { path: '', pathMatch: 'full', component: HomeComponent },
     { path: 'inicio', component: HomeComponent },
+    { path: 'actores', loadChildren: () => import("./actores/modulo.module").then(mod => mod.ActoresModule)},
     { path: '404.html', component: PageNotFoundComponent },
     { path: '**', component: PageNotFoundComponent },
 ];
