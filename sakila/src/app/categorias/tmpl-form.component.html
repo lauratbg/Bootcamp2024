@@ -1,0 +1,33 @@
+<h1>Categoría</h1>
+@if(VM.Elemento) {
+<form #miForm="ngForm" class="row gy-2 gx-2 align-items-start">
+  @if (VM.Modo==='add') {
+    <div class="form-floating col-md-2">
+      <input class="form-control" [class.is-invalid]="id.invalid && miForm.dirty" type="number" name="id" id="id" [(ngModel)]="VM.Elemento.id"
+      #id="ngModel" required min="0" placeholder=" ">
+      <label for="id">Código:</label>
+      <output class="invalid-feedback" [hidden]="id.valid">{{id.errors | errormsg}}</output>
+    </div>
+  } @else {
+    <div class="col-md-2">
+      <label class="form-label-sm" for="id">Código:</label>
+      <output class="d-block" [textContent]="VM.Elemento.id"></output>
+    </div>
+  }
+  <div class="form-floating col-md-4">
+    <input class="form-control" [class.is-invalid]="categoria.invalid" type="text" name="categoria" id="nombre"
+       [(ngModel)]="VM.Elemento.categoria" #categoria="ngModel" required minlength="2"
+       maxlength="50" placeholder=" ">
+    <label for="categoria">Categoría:</label>
+    <output class="invalid-feedback" [hidden]="categoria.valid">{{categoria.errors | errormsg}}</output>
+  </div>
+  
+  <div class="mt-2">
+    <input type="button" class="btn btn-success" value="Enviar" (click)="VM.send()"
+       [disabled]="miForm.invalid">
+    <input type="button" class="btn btn-info" value="Volver" (click)="VM.cancel()">
+  </div>
+</form>
+} @else {
+  <h2>Sin datos</h2>
+}
