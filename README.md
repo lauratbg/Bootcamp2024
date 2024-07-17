@@ -135,7 +135,7 @@ Creación de módulos
 - **ng g m config**
 - **ng g m ../lib/MyCore**
 
-## sakira
+## sakila
 Proyecto Angular en el que wse encuentra un frontend básico para el catálogo. Se puede ver la lista de categorías, actores y películas. Hay el suficiente contenido para demostrar mis conocimientos.
 <br>akira
 Se debe tener arrancado el **catalogo**, **ms.apigateway.server**, **ms.autentication** y **ms.eureka.server**, así como el contenedor mysql-sakila
